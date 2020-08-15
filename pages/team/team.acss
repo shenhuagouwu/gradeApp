@@ -1,0 +1,393 @@
+.date-total{
+    width: 100%;
+    background: #f5f5f5;
+    overflow: hidden;
+    padding: 0 30rpx;
+}
+.date-total .item-div{
+    width: 50%;
+    float:left;
+    overflow: hidden;
+}
+.date-total .date-div{
+    padding: 23rpx 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.date-total .date{
+    height: 48rpx;
+    background: #ffffff;
+    padding: 0 30rpx;
+    font-size:0;
+    border-radius: 48rpx;
+    display: inline-block;
+}
+.date-total .date .txt-date{
+    display: inline-block;
+    height: 48rpx;
+    line-height: 48rpx;
+    font-size: 24rpx;
+    color: #000000;
+}
+.date-total .date .icon-arrow{
+    width:0;
+    height:0;
+    display: inline-block;
+    border-top: 10rpx solid #535353;
+    border-left: 10rpx dashed transparent;
+    border-right: 10rpx dashed transparent;
+    border-bottom: none;
+    margin-left: 20rpx;
+    vertical-align: 4rpx;
+}
+
+.date-total .total-div{
+    padding: 15rpx 0;
+}
+.date-total .item-div .txt-font{
+    width: 100%;
+    text-align: right;
+    font-size: 20rpx;
+    color: #878787;
+    height: 32rpx;
+    line-height: 32rpx;
+    overflow: hidden;
+}
+
+.main-content{
+    background: #ffffff;
+    overflow: hidden;
+    width: 100%;
+}
+.scroll-team{
+    height: 88rpx;
+    width: 100%;
+    overflow: hidden;
+}
+.is-fixed.team-scroll{
+    position: fixed;
+    left:0;
+    z-index: 2020;
+    background: #fff;
+    box-shadow: 0 5rpx 5rpx rgba(0,0,0,.05);
+    top: 84rpx;
+}
+.team-scroll{
+    font-size:0;
+    line-height:0;
+    height: 88rpx;
+    white-space: nowrap;
+}
+.team-scroll .item-team{
+    display: inline-block;
+    height: 88rpx;
+    line-height: 88rpx;
+    font-size: 24rpx;
+    color: #545454;
+    white-space: nowrap;
+    margin-left: 35rpx;
+    position: relative;
+    z-index: 10;
+}
+.team-scroll .item-team:last-child{
+    margin-right: 30rpx;
+}
+.team-scroll .item-team.on:before{
+    content:'';
+    display: block;
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    left:0;
+    bottom:0;
+    background: linear-gradient(to right,#ba1c2a,#f6cdc9);
+}
+
+.team-content{
+    width: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+}
+.team-content:before{
+    content:'';
+    display: block;
+    left: 30rpx;
+    right: 30rpx;
+    height: 1px;
+    background: #f1f6ff;
+    position: absolute;
+    top:0;
+}
+.team-content .item-content{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+}
+.team-content .item-content .btm-div{
+    width: 100%;
+    height: 40rpx;
+    overflow: hidden;
+}
+.team-content .item-content .item-div{
+    width: 100%;
+    height: 20rpx;
+    background: #f5f5f5;
+}
+.team-content .item-content .txt-h2{
+    width: 100%;
+    padding: 0 30rpx;
+    overflow: hidden;
+}
+.team-content .item-content .txt-h2 .txt-font{
+    display: block;
+    width: 100%;
+    height: 96rpx;
+    line-height: 96rpx;
+    border-bottom: 1px solid #f1f6ff;
+    font-size: 32rpx;
+    color: #222734;
+    font-weight: bold;
+}
+.data-div{
+    width: 100%;
+    overflow: hidden;
+    padding: 15rpx 0 0;
+}
+.data-div .item-data{
+    width: 100%;
+    padding: 15rpx 0;
+    display: flex;
+}
+.data-div .item-data .flex-div{
+    display: flex;
+    position: relative;
+    padding: 5rpx 0;
+}
+.data-div .item-data .flex-div + .flex-div:before{
+    content:'';
+    display: block;
+    width: 1px;
+    height: 74%;
+    bottom: 0;
+    left:0;
+    position: absolute;
+    background: #efeeee;
+}
+.data-div .item-data .item-table{
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+.data-div .item-data .team-div{
+    width: 25%;
+    padding: 40rpx 0 5rpx;
+}
+.data-div .item-data .day-div{
+    width: 32%;
+}
+.data-div .item-data .month-div{
+    flex: 1;
+}
+.data-div .item-data .item-table .item-td{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+    display: table-cell;
+}
+.data-div .item-data .item-table .item-td .txt-name,
+.data-div .item-data .item-table .item-td .txt-group,
+.data-div .item-data .item-table .item-td .txt-num,
+.data-div .item-data .item-table .item-td .txt-date,
+.data-div .item-data .item-table .item-td .txt-font{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.data-div .item-data .item-table .item-td .txt-name,
+.data-div .item-data .item-table .item-td .txt-font{
+    font-size: 26rpx;
+    color: #727171;
+    height: 36rpx;
+    line-height: 36rpx;
+    font-weight: bold;
+}
+.data-div .item-data .item-table .item-td .txt-group,
+.data-div .item-data .item-table .item-td .txt-date{
+    font-size: 20rpx;
+    color: #b8b8b8;
+    height: 32rpx;
+    line-height: 32rpx;
+}
+.data-div .item-data .item-table .item-td .txt-num{
+    height: 48rpx;
+    font-size:0;
+    line-height:0;
+}
+.data-div .item-data .item-table .item-td .txt-num .txt-qty{
+    display: inline-block;
+    height: 48rpx;
+    line-height: 48rpx;
+    font-size: 38rpx;
+    font-weight: bold;
+    position: relative;
+}
+.data-div .item-data .day-div .item-table .item-td .txt-num .txt-qty{
+    color: #ec612a;
+}
+.data-div .item-data .month-div .item-table .item-td .txt-num .txt-qty{
+    color: #de590c;
+}
+.data-div .item-data .item-table .item-td .txt-num.win .txt-qty:after{
+    content:'胜';
+    width: 32rpx;
+    height: 32rpx;
+    border-radius: 100%;
+    line-height: 36rpx;
+    color: #ff031b;
+    font-size: 20rpx;
+    text-align: center;
+    font-weight: bold;
+    background: #e8f1f6;
+    position: absolute;
+    overflow: hidden;
+    right: -40rpx;
+    top: 0;
+}
+
+
+.notice{
+    padding: 25rpx 30rpx 0 40rpx;
+    overflow: hidden;
+    position: relative;
+    line-height:0;
+    font-size:0;
+}
+.notice .txt-1,
+.notice .txt-2,
+.notice .txt-3,
+.notice .txt-4{
+    display: inline-block;
+    vertical-align: top;
+}
+.notice .txt-1{
+    width: 48rpx;
+    height: 48rpx;
+    line-height: 52rpx;
+    background: #f1460e;
+    font-size: 28rpx;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 100%;
+    margin-right: 20rpx;
+    overflow: hidden;
+}
+.notice .txt-2,.notice .txt-4{
+    font-size: 30rpx;
+    color: #252525;
+    height: 48rpx;
+    line-height: 48rpx;
+}
+.notice .txt-4{
+    margin: 0 20rpx;
+}
+.notice .txt-3{
+    font-size: 30rpx;
+    height: 48rpx;
+    line-height: 48rpx;
+    color: #de590c;
+    font-weight: bold;
+}
+
+.notice .btn-brand{
+    height: 48rpx;
+    background: #ffffff;
+    padding: 0 20rpx;
+    font-size:0;
+    border-radius: 48rpx;
+    display: inline-block;
+    position: absolute;
+    border: 1rpx solid #f5f5f5;
+    right: 30rpx;
+    top: 25rpx;
+}
+.notice .btn-brand .txt-font{
+    display: inline-block;
+    height: 46rpx;
+    line-height: 48rpx;
+    font-size: 20rpx;
+    color: #f57b53;
+}
+.notice .btn-brand .icon-arrow{
+    width:0;
+    height:0;
+    display: inline-block;
+    border-top: 10rpx solid #eb4f46;
+    border-left: 10rpx dashed transparent;
+    border-right: 10rpx dashed transparent;
+    border-bottom: none;
+    margin-left: 10rpx;
+    vertical-align: 2rpx;
+}
+.notice .btn-brand.show .icon-arrow{
+    width:0;
+    height:0;
+    display: inline-block;
+    border-bottom: 10rpx solid #eb4f46;
+    border-left: 10rpx dashed transparent;
+    border-right: 10rpx dashed transparent;
+    border-top: none;
+    margin-left: 10rpx;
+    vertical-align: 3rpx;
+}
+
+.chart-members{
+    width: 100%;
+    padding: 40rpx 30rpx 0;
+    overflow: hidden;
+}
+.chart-members .txt-h3{
+    width: 100%;
+    height: 52rpx;
+    overflow: hidden;
+    line-height:0;
+    font-size:0;
+}
+.chart-members .txt-h3 .txt-font,.chart-members .txt-h3 .txt-red{
+    display: inline-block;
+    height: 52rpx;
+    line-height: 52rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+}
+.chart-members .txt-h3 .txt-font{
+    color: #171d2b
+}
+.chart-members .txt-h3 .txt-red{
+    color: #eb4940;
+    margin-left: 10rpx;
+}
+.chart-members .txt-des{
+    width: 100%;
+    height: 32rpx;
+    line-height: 32rpx;
+    font-size: 18rpx;
+    color: #8d8d8d;
+    overflow: hidden;
+    margin-top: 10rpx;
+}
+.chart-members .chart-cavans{
+    width: 100%;
+    height: 400rpx;
+}
+.demo{
+    width: 48rpx;
+    height: 48rpx;
+    background: red;
+    position: absolute;
+    right:0;
+    top:0;
+}

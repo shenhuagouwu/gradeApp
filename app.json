@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/subGroup/subGroup",
+    "pages/team/team",
+    "pages/combine/combine",
+    "pages/personDetail/personDetail"
+  ],
+  "window": {
+    "titleBarColor": "#1e81d2",
+    "defaultTitle": "红星后台"
+  }
+}

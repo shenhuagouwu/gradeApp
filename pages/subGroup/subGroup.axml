@@ -1,0 +1,329 @@
+
+
+<block a:if="{{!isLoading}}">
+<view class="combine-compare">
+  <view class="compare-panel">
+    <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+    <view class="compare-title {{selectedStartDate!=selectedEndDate?'two-date':''}}">
+      <view class="combine-title"><text class="txt-group">{{initData.teamName}}-</text><text class="txt-name">{{initData.userName}}</text></view>
+      <view class="line"></view>
+      <view class="date" onTap="showDatePicker"><text class="txt-date">{{selectedStartDate}}</text><text class="txt-date" a:if="{{selectedStartDate!=selectedEndDate}}">{{selectedEndDate}}</text><text class="icon-arrow"></text></view>
+    </view>
+    <view class="chart-mark mark-top"></view>
+    <view class="grade-panel" a:if="{{initData.timestatus==2}}">
+      <view class="item-grade">
+        <view class="txt-p txt-num">{{initData.daynumber}}</view>
+        <view class="txt-p txt-font">当日个数</view>
+        <view class="txt-p txt-date">{{initData.nowtime}}</view>
+      </view>
+      <view class="item-grade">
+        <view class="txt-p txt-num">{{initData.monthnumber}}</view>
+        <view class="txt-p txt-font">本月个数</view>
+        <view class="txt-p txt-date">{{initData.time}}</view>
+      </view>
+    </view>
+    <view class="grade-panel" a:else>
+      <view class="item-grade">
+        <view class="txt-p txt-total">{{initData.monthnumber}}</view>
+      </view>
+      <view class="item-grade">
+        <view class="txt-p txt-font" a:if="{{selectedStartDate==selectedEndDate}}">当月总个数</view>
+        <view class="txt-p txt-font" a:else>本阶段总个数</view>
+        <view class="txt-p txt-date">{{initData.time}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="task-panel" a:if="{{initData.jindustatus == 1||initData.status != 2||initData.brandstatus == 1||lang=='cn'}}">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="task-content">
+    <view class="item-group" a:if="{{(lang=='cn'||initData.jindustatus == 1)&&initData.currentData.length>0}}">
+      <view class="txt-h2">任务目标</view>
+      <view class="team-list">
+        <view class="team-line"></view>
+        <view class="item-team" a:for="{{initData.currentData}}" key="{{item}}">
+          <view class="team-name-panel">
+            <text class="txt-name">{{item.userName}}</text>
+            <text class="txt-team">{{item.teamName}}</text>
+          </view>
+          <view class="team-task">
+            <view class="task-range">
+              <view class="range-mask" style="width: {{item.percentRange}}">
+                <view class="txt-font no-task" a:if="{{item.mnumber==2000&&(item.uid==12||item.uid==13)}}"><text class="color-percent">占比 {{item.percentFont}}</text></view>
+                <view class="txt-font" a:else><text class="color-percent">进度 {{item.percentFont}}</text><text class="date-percent">时间 {{item.datePercent}}</text></view>
+              </view>
+              <view class="date-range" style="width: {{item.datePercent}}"></view>
+              <view class="color-range" style="width:{{item.percent}};"></view>
+            </view>
+            <view class="task-font no-task" a:if="{{item.mnumber==2000&&(item.uid==12||item.uid==13)}}"><text class="txt-span txt-font">小组询盘</text><text class="txt-span txt-current">{{item.number}}</text><text class="txt-span txt-font">/中文优化总询盘</text><text class="txt-span txt-current">{{item.totalNum}}</text></view>
+            <view class="task-font" a:else><text class="txt-span txt-font">目标</text><text class="txt-span txt-current">{{item.number}}</text><text class="txt-span txt-total">/{{item.mnumber}}</text></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <block a:if="{{initData.timestatus==2}}">
+    <view class="table-view is-range" a:if="{{initData.status != 2&&initData.brandstatus!=1}}">
+      <view class="header-table">
+        <view class="td-view"><text class="txt-name">姓名</text></view>
+        <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{initData.nowtime}}</text></view>
+        <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{initData.time}}</text></view>
+      </view>
+      <view class="body-table">
+        <view class="item-view">
+          <view class="son-table">
+            <view class="item-table" a:for="{{initData.userData}}" key="{{item}}" data-id="{{item.id}}" data-team="{{initData.id}}" data-name="{{item.xm}}" onTap="goToPersonDetail">
+              <view class="td-view"><text class="txt-name">{{item.xm}}</text></view>
+              <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item.nowdata}}</text></text></view>
+              <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item.monthdata}}</text></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="table-view only-brand is-range" a:if="{{(initData.brandstatus == 1&&currentID!=16)||(initData.brandstatus == 1&&currentID==16&&pageType=='team')}}">
+      <view class="header-table">
+        <view class="td-view"><text class="txt-name">品牌</text></view>
+        <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{initData.nowtime}}</text></view>
+        <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{initData.time}}</text></view>
+      </view>
+      <view class="body-table">
+        <view class="item-view">
+          <view class="son-table">
+            <view class="item-table" a:for="{{initData.brandinfo}}" key="{{item}}">
+              <view class="td-view"><text class="txt-name">{{item.brand}}</text></view>
+              <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item.nowdata}}</text></text></view>
+              <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item.monthdata}}</text></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+    <block a:else>
+    <view class="table-view is-range" a:if="{{initData.status != 2&&initData.brandstatus!=1}}">
+      <view class="header-table">
+        <view class="td-view"><text class="txt-name">姓名</text></view>
+        <view class="td-view"><text class="txt-font">本阶段个数</text><text class="txt-date">{{initData.time}}</text></view>
+      </view>
+      <view class="body-table">
+        <view class="item-view">
+          <view class="son-table">
+            <view class="item-table" a:for="{{initData.userData}}" key="{{item}}" data-id="{{item.id}}" data-team="{{initData.id}}" data-name="{{item.xm}}" onTap="goToPersonDetail">
+              <view class="td-view"><text class="txt-name">{{item.xm}}</text></view>
+              <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item.monthdata}}</text></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="table-view only-brand is-range" a:if="{{(initData.brandstatus == 1&&currentID!=16)||(initData.brandstatus == 1&&currentID==16&&pageType=='team')}}">
+      <view class="header-table">
+        <view class="td-view"><text class="txt-name">品牌</text></view>
+        <view class="td-view"><text class="txt-font">本阶段个数</text><text class="txt-date">{{initData.time}}</text></view>
+      </view>
+      <view class="body-table">
+        <view class="item-view">
+          <view class="son-table">
+            <view class="item-table" a:for="{{initData.brandinfo}}" key="{{item}}">
+              <view class="td-view"><text class="txt-name">{{item.brand}}</text></view>
+              <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item.monthdata}}</text></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+  </view>
+  <view class="task-content" a:if="{{initData.status == 1&&initData.brandstatus==1}}">
+    <block a:if="{{initData.timestatus==2}}">
+    <view class="tab-title">
+      <view class="item-tab {{item.isOn?'on':''}}" a:for="{{initData.user}}" key="{{item}}" data-name="{{item.name}}" onTap="getBrandMember"><text class="txt-font">{{item.name}}</text></view>
+    </view>
+    <view class="table-view is-range">
+      <view class="header-table">
+        <view class="td-view"><text class="txt-name">姓名</text></view>
+        <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{initData.nowtime}}</text></view>
+        <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{initData.time}}</text></view>
+      </view>
+      <view class="body-table">
+        <view class="item-view">
+          <view class="son-table">
+            <view class="item-table" a:for="{{initData.userData}}" key="{{item}}" data-id="{{item.id}}" data-team="{{initData.id}}" data-name="{{item.xm}}" onTap="goToPersonDetail">
+              <view class="td-view"><text class="txt-name">{{item.xm}}</text></view>
+              <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item.nowdata}}</text></text></view>
+              <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item.monthdata}}</text></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+    <block a:else>
+    <view class="tab-title">
+      <view class="item-tab {{item.isOn?'on':''}}" a:for="{{initData.user}}" key="{{item}}" data-name="{{item.name}}" onTap="getBrandMember"><text class="txt-font">{{item.name}}</text></view>
+    </view>
+    <view class="table-view is-range">
+      <view class="header-table">
+        <view class="td-view"><text class="txt-name">姓名</text></view>
+        <view class="td-view"><text class="txt-font">本阶段个数</text><text class="txt-date">{{initData.time}}</text></view>
+      </view>
+      <view class="body-table">
+        <view class="item-view">
+          <view class="son-table">
+            <view class="item-table" a:for="{{initData.userData}}" key="{{item}}" data-id="{{item.id}}" data-team="{{initData.id}}" data-name="{{item.xm}}" onTap="goToPersonDetail">
+              <view class="td-view"><text class="txt-name">{{item.xm}}</text></view>
+              <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item.monthdata}}</text></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    </block>
+  </view>
+</view>
+<view class="chart-content">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="chart-panel">
+    <view class="chart-title">
+      <view class="title-date">
+        <view class="txt-h2">数据分析趋势图</view>
+        <view class="item-date">当前选中日期：{{chartCurrentDate}}</view>
+      </view>
+      <view class="chart-type">
+        <view class="type-panel">
+          <text class="item-type {{item.isOn?'on':''}}" data-type="{{item.type}}" onTap="clickChartType" a:for="{{chartType}}">{{item.name}}</text>
+        </view>
+      </view>
+    </view> 
+    <view class="chart-mark"></view>
+    <view class="chart-compare">
+      <block a:if="{{trendstatus==1}}">
+      <view class="item-compare {{changeData.daySort}}">
+        <view class="view-font"><text class="txt-font">本日</text><text class="txt-num">{{changeData.nowdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一日</text><text class="txt-num">{{changeData.lastdata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeDayFont}}</text>
+          <text class="txt-num">{{changeData.changeDayNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.daySort}}.png"/>
+        </view>
+      </view>
+      <view class="item-compare {{changeData.weekSort}}">
+        <view class="view-font"><text class="txt-font">本周</text><text class="txt-num">{{changeData.nowweekdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一周</text><text class="txt-num">{{changeData.lastweekdata}}</text></view>
+        <view class="view-font compare-num">
+            <text class="txt-font">{{changeData.changeWeekFont}}</text>
+            <text class="txt-num">{{changeData.changeWeekNum}}</text>
+            <image class="img-owner" src="../../assets/images/{{changeData.weekSort}}.png"/>
+        </view>
+      </view>
+      </block>
+      <block a:else>
+      <view class="item-compare {{changeData.monthSort}}">
+        <view class="view-font"><text class="txt-font">本月</text><text class="txt-num">{{changeData.nowmonthdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一月</text><text class="txt-num">{{changeData.lasttimedata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeMonthFont}}</text>
+          <text class="txt-num">{{changeData.changeMonthNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.monthSort}}.png"/>
+        </view>
+      </view>
+      </block>
+    </view>
+    <view class="chart-map" a:if="{{currentChartData.categories.length>0}}">
+      <line
+        categories="{{currentChartData.categories}}"
+        series="{{currentChartData.series}}"
+        xAxis="{{currentChartData.xAxis}}"
+        yAxis="{{currentChartData.yAxis}}"
+        tooltip="{{currentChartData.tooltip}}"
+        legend="{{currentChartData.legend}}"
+        onTooltipChange= "_onTooltipChange"
+      />
+    </view>
+  </view>
+  <view class="contrast-panel" a:if="{{trendstatus==1}}">
+    <view class="contrast-data">
+      <view class="item-data">
+        <view class="vs-font {{changeData.monthSort}}">
+          <image class="img-owner" a:if="{{changeData.monthSort=='asc'}}" src="../../assets/images/icon_up.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='equal'}}" src="../../assets/images/icon_equal.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='des'}}" src="../../assets/images/icon_down.png"/>
+          <view class="txt-font"><text class="txt-char">{{changeData.changeMonthFont}}</text><block a:if="{{changeData.monthSort!='equal'}}">{{changeData.changeMonthNum}}个</block></view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.nowmonthdata}}个</view>
+          <view class="txt-font">本月个数</view>
+          <view class="txt-date">({{changeData.nowtime1}})</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lasttimedata}}个</view>
+          <view class="txt-font">上月同阶段个数</view>
+          <view class="txt-date">({{changeData.lasttime1}})</view>
+        </view>
+      </view>
+      <view class="last-month">
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lastmonthdata}}个</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-font">上月总个数</view>
+          <view class="txt-date">({{changeData.lastmonth}})</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="footer team-footer">
+  <view class="txt-p">
+    <text class="txt-line"></text>
+    <text class="txt-font">版权归红星机器所有</text>
+  </view>
+</view>
+</block>
+<view class="date-picker" a:if="{{datePicker.isShow}}">
+  <view class="picker-mark" onTap="hideDatePicker" animation="{{datePicker.animationInfo}}"></view><!--  -->
+  <view class="picker-content" animation="{{datePicker.animationData}}"><!--   -->
+    <view class="picker-header">
+      <text class="btn-cancel" onTap="hideDatePicker">取消</text>
+      <text class="txt-title">选择时间</text>
+      <text class="btn-save" onTap="getCurrentDateData">确定</text>
+    </view>
+    <view class="time-type"><view class="txt-p" onTap="changeTimeType"><text class="txt-font">{{timeType.typeFont}}</text></view></view>
+    <view class="selected-panel">
+      <view class="txt-date {{dateType=='start'?'on':''}}" data-type="start" onTap="selectedDate" a:if="{{timeType.isMonth}}">{{selectedDate.monthDate}}<text class="default-font" a:if="{{selectedDate.monthDate==''}}">选择月份</text></view>
+      <block a:else>
+      <view class="txt-date {{dateType=='start'?'on':''}}" data-type="start" onTap="selectedDate">{{selectedDate.startDate}}<text class="default-font" a:if="{{selectedDate.startDate==''}}">开始日期</text></view>
+      <view class="txt-font">至</view>
+      <view class="txt-date {{dateType=='end'?'on':''}}" data-type="end" onTap="selectedDate">{{selectedDate.endDate}}<text class="default-font" a:if="{{selectedDate.endDate==''}}">结束日期</text></view>
+      </block>
+    </view>
+    <view class="delete-date"><view class="btn-delete" onTap="deleteDate"></view></view>
+    <view class="picker-wrap">
+    <block a:if="{{!isDelete}}">
+    <view class="picker-body" a:if="{{timeType.isMonth}}">
+      <picker-view value="{{dateData.value}}" onChange="datePickerChange">
+        <picker-view-column>
+          <view a:for="{{dateData.years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData.months}}">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    <view class="picker-body" a:else>
+      <picker-view value="{{dateData1.value}}" onChange="datePickerChange1">
+        <picker-view-column>
+          <view a:for="{{dateData1.years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData1.months}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData1.days}}">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    </block>
+    </view>
+  </view>
+</view>

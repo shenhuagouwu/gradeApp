@@ -1,0 +1,365 @@
+<block a:if="{{isList}}">
+<view class="abs-panel {{isAbs?'is-abs':''}}">
+  <view class="nav-panel" id="fixedNav" a:if="{{!isAbs}}">
+    <view class="item-nav" onTap="goToGourp"><text class="txt-nav">任务目标</text></view>
+    <view class="item-nav" onTap="goToTeam"><text class="txt-nav">成绩中心</text></view>
+    <view class="item-nav on"><text class="txt-nav">个人中心</text></view>
+    <view class="fixed-height" id="fixedLink"></view>
+  </view>
+  <view class="fixed-nav {{isAbs?'show':''}}">
+    <view class="item-nav" onTap="goToGourp"><text class="txt-nav">任务目标</text></view>
+    <view class="item-nav" onTap="goToTeam"><text class="txt-nav">成绩中心</text></view>
+    <view class="item-nav on"><text class="txt-nav">个人中心</text></view>
+  </view>
+  <scroll-view id="fixedScroll" class="team-scroll" style="width: 100%;" scroll-x="{{true}}">
+    <block a:for="{{userList}}">
+      <view class="item-team {{item.isOn?'on':''}} {{item.dgroup.length>1&&item.name!='全部'?'is-child':''}}" key="{{item}}" data-name="{{item.nameFont}}" onTap="selectedTeam">{{item.name}}</view>
+    </block>
+  </scroll-view>
+  <view class="data-date">
+    <view class="txt-font">*数据更新到{{todayFont}}</view>
+    <view class="date-panel"><view class="date" onTap="showDatePicker1"><text class="txt-date">{{selectedDateFont}}</text><text class="icon-arrow"></text></view></view>
+  </view>
+</view>
+<view class="abs-mark" a:if="{{isAbs}}"></view>
+<view class="team-member">
+  <view class="item-group" id="group-{{item.id}}" a:for="{{currentUserList}}">
+    <view class="item-team" id="team-{{items.id}}" a:for="{{item.group}}" a:for-item="items">
+      <view class="team-leader">
+        <view class="leader" data-name="{{items.userName}}" data-team="{{items.id}}" data-id="{{items.userid}}" onTap="goToDetail">
+          <view class="user-pic">
+            <image a:if="{{items.headimg==''||items.headimg==null}}" class="img-owner" mode="aspectFill" src="../../assets/images/user_pic.jpg"/>
+            <image a:else class="img-owner" mode="aspectFill" src="{{items.headimg}}"/>
+          </view>
+          <view class="user-info">
+            <view class="user-a">
+              <view class="user-c"><text class="txt-name">{{items.userName}}</text><image a:if="{{items.level!='8'}}" class="level-img level-{{items.level}}" src="../../assets/images/level_{{items.level}}.png"/></view>
+              <view class="user-d"><text class="txt-group">{{items.teamName}}</text><text class="txt-combine">{{items.term}}</text></view>
+              <view class="user-f">
+                <view class="user-e"><text class="txt-font">积分</text><text class="txt-value">{{items.jifen}}</text></view>
+                <view class="user-e" a:if="{{items.worklevel!=null&&items.worklevel!=''}}"><text class="txt-font">等级</text><text class="txt-value">{{items.worklevel}}</text></view>
+              </view>
+            </view>
+            <view class="user-g" a:if="{{items.monthnumber!=null}}">
+              <view class="txt-value">{{items.monthnumber}}</view>
+              <view class="txt-font">本月总成绩</view>
+            </view>
+          </view>
+        </view>
+        <view class="chart-mark" a:if="{{items.user.length>0}}"></view>
+        <view class="member-content" a:if="{{items.user.length>0}}">
+          <view class="item-member {{item1.myrank<4?'fst':''}}" a:for="{{items.user}}" a:for-item="item1" data-name="{{item1.uname}}" data-team="{{items.id}}" data-id="{{item1.userid}}" onTap="goToDetail">
+            <view class="ranking {{item1.rankFont}}" a:if="{{item1.myrank!=0}}">
+              <view class="ranking-num">
+                <text class="txt-strong">{{item1.myrank}}</text>
+                <text class="txt-em" a:if="{{item1.myrank==1}}">st</text>
+                <text class="txt-em" a:if="{{item1.myrank==2}}">nd</text>
+                <text class="txt-em" a:if="{{item1.myrank==3}}">rd</text>
+              </view>
+              <view class="ranking-float">
+                <image mode="scaleToFill" src="../../assets/images/icon_{{item1.rankFont}}.png" class="img-owner"/>
+                <text class="txt-num" a:if="{{item1.rankAbs!=0}}">{{item1.rankAbs}}</text>
+              </view>
+            </view>
+            <view class="user-img">
+              <image a:if="{{item1.headimg==null||item1.headimg==''}}" class="img-owner" mode="aspectFill" src="../../assets/images/user_pic.jpg"/>
+              <image a:else class="img-owner" mode="aspectFill" src="{{item1.headimg}}"/>
+            </view>
+            <view class="user-data">
+              <view class="user-level"><text class="txt-name">{{item1.uname}}</text><image a:if="{{item1.level!='8'}}" class="img-level" src="../../assets/images/l_{{item1.level}}.png"/></view>
+              <view class="user-work">岗位/{{item1.work}}</view>
+              <view class="user-des">
+                <view class="txt-point">积分：{{item1.jifen}}</view>
+                <view class="txt-level" a:if="{{item1.worklevel!=null&&item1.worklevel!=''}}">等级：{{item1.worklevel}}</view>
+              </view>
+            </view>
+            <view class="user-grade" a:if="{{item1.myrank!=0}}">
+              <view class="txt-value">{{item1.monthnumber}}</view>
+              <view class="txt-font">个人成绩</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+</block>
+<block a:else>
+<view class="combine-compare">
+  <view class="compare-panel">
+    <view class="leader">
+      <view class="user-pic">
+        <image a:if="{{userData.userinfo.headimg==''}}" class="img-owner" mode="aspectFill" src="../../assets/images/user_pic.jpg"/>
+        <image a:else class="img-owner" mode="aspectFill" src="{{userData.userinfo.headimg}}"/>
+      </view>
+      <view class="user-info">
+        <view class="user-a">
+          <view class="user-c"><text class="txt-name">{{userData.userinfo.uname}}</text><image a:if="{{userData.userinfo.level!='8'}}" class="level-img level-{{userData.userinfo.level}}" src="../../assets/images/level_{{userData.userinfo.level}}.png"/></view>
+          <view class="user-d"><text class="txt-group">{{userData.userinfo.teamName}}</text><text class="txt-combine">{{userData.userinfo.combineName}}</text></view>
+        </view>
+        <view class="user-b">
+          <view class="user-e"><text class="txt-value">{{userData.userinfo.jifen}}</text><text class="txt-font">岗位积分</text></view>
+          <view class="user-e" a:if="{{userData.userinfo.worklevel!=null&&userData.userinfo.worklevel!=''}}"><text class="txt-value">{{userData.userinfo.worklevel}}</text><text class="txt-font">岗位等级</text></view>
+        </view>
+      </view>
+    </view>
+    <view class="user-say {{permissionsData.level==1?'is-leader':''}} {{isCanEdit?'is-self':''}} {{isEdit?'is-edit':''}}">
+      <view class="user-font">
+        <block a:if="{{isEdit}}">
+          <textarea focus="{{focus}}" onBlur="getTextareaValue" value="{{userData.userinfo.persontarget}}" maxlength="-1" class="txt-input" auto-height placeholder="写下你的目标，让它成为一种挑战！！" />
+        </block>
+        <block a:else>
+        <view class="txt-font" onTap="editUserFont" a:if="{{userData.userinfo.persontarget!=''}}">{{userData.userinfo.persontarget}}</view>
+        <view class="empty-font" onTap="editUserFont" a:else>写下你的目标，让它成为一种挑战！！</view>
+        </block>
+      </view>
+      <block a:if="{{isCanEdit}}">
+        <block a:if="{{isEdit}}">
+        <view class="btn-save" onTap="saveEdit">发布</view>
+        <view class="btn-cancel" onTap="cancelEdit">取消</view>
+        </block>
+        <view class="btn-edit" onTap="editUserFont" a:else></view>
+      </block>
+    </view>
+    <view class="card-list" a:if="{{!userData.userinfo.isEmptyHonor}}">
+      <view class="item-card yw" a:if="{{userData.userinfo.honorList[0]>0}}">
+        <view class="dl-view">
+          <image class="dt-view" mode="aspectFill" src="../../assets/images/icon_yw.png"/>
+          <view class="dd-view">业务警告</view>
+        </view>
+        <view class="p-view">x {{userData.userinfo.honorList[0]}}</view>
+      </view>
+      <view class="item-card jl" a:if="{{userData.userinfo.honorList[1]>0}}">
+        <view class="dl-view">
+          <image class="dt-view" mode="aspectFill" src="../../assets/images/icon_jl.png"/>
+          <view class="dd-view">纪律警告</view>
+        </view>
+        <view class="p-view">x {{userData.userinfo.honorList[1]}}</view>
+      </view>
+      <view class="item-card yj" a:if="{{userData.userinfo.honorList[2]>0}}">
+        <view class="dl-view">
+          <image class="dt-view" mode="aspectFill" src="../../assets/images/icon_yj.png"/>
+          <view class="dd-view">业绩第一</view>
+        </view>
+        <view class="p-view">x {{userData.userinfo.honorList[2]}}</view>
+      </view>
+      <view class="item-card fx" a:if="{{userData.userinfo.honorList[3]>0}}">
+        <view class="dl-view">
+          <image class="dt-view" mode="aspectFill" src="../../assets/images/icon_fx.png"/>
+          <view class="dd-view">分享第一</view>
+        </view>
+        <view class="p-view">x {{userData.userinfo.honorList[3]}}</view>
+      </view>
+    </view>
+    <view class="back-list" a:if="{{isLeader}}" onTap="backList">返回成员列表</view>
+  </view>
+</view>
+<view class="member-detail" a:if="{{rankingList.length >0}}">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="member-title {{selectedStartDateFormat!=selectedEndDateFormat?'two-date':''}}">
+    <view class="p-title"><text class="txt-name" a:if="{{currentTeamID==12||currentTeamID==13||currentTeamID==16||currentTeamID==17||currentTeamID==21||currentTeamID==22||currentTeamID==25||currentTeamID==26}}">小组成绩榜</text><text class="txt-name" a:else>个人成绩榜</text></view>
+    <view class="date" onTap="showDatePicker"><text class="txt-date">{{selectedStartDateFormat}}</text><text class="txt-date" a:if="{{selectedStartDateFormat!=selectedEndDateFormat}}">到 {{selectedEndDateFormat}}</text><text class="icon-arrow"></text></view>
+  </view>
+  <view class="tab-title">
+    <view class="item-tab {{item.isOn?'on':''}}" onTap="changeRankType" data-type="{{item.type}}" a:for="{{rankingList}}"><text class="txt-font">{{item.type}}</text></view>
+  </view>
+  <block a:if="{{permissionsData.id==currentID}}">
+    <view class="tips" a:if="{{currentRankData.ranking==1}}">你当前处于第1名。恭喜你，付出总会有回报，继续保持哦！</view>
+    <view class="tips" a:elif="{{currentRankData.ranking<11&&currentRankData.ranking>1}}">掀开被你隐藏的才能，相信自己，你会做的更好！</view>
+    <view class="tips" a:elif="{{currentRankData.rankList.length>12&&currentRankData.ranking>currentRankData.rankList.length-2}}">与其仰望别人的辉煌，不如自己展翅翱翔，有志者事竟成，加油！</view>
+  </block>
+  <view class="tab-team" a:if="{{userData.personstatus==4}}">
+    <view class="item-team {{item.isOn?'on':''}}" onTap="changeRankTeam" data-id="{{item.id}}" a:for="{{userData.ranklist}}"><text class="txt-font">{{item.teamName}}</text></view>
+  </view>
+  <view class="member-content">
+    <view class="item-member {{item1.myrank<4?'fst':''}}" a:for="{{currentRankData.rankList}}" a:for-item="item1" data-name="{{item1.userName}}" data-team="{{item1.group_id}}" data-id="{{item1.id}}" onTap="goToDetail">
+      <view class="ranking {{item1.rankFont}}" a:if="{{item1.myrank}}">
+        <view class="ranking-num">
+          <text class="txt-strong">{{item1.myrank}}</text>
+          <text class="txt-em" a:if="{{item1.myrank==1}}">st</text>
+          <text class="txt-em" a:if="{{item1.myrank==2}}">nd</text>
+          <text class="txt-em" a:if="{{item1.myrank==3}}">rd</text>
+        </view>
+        <view class="ranking-float">
+          <image mode="scaleToFill" src="../../assets/images/icon_{{item1.rankFont}}.png" class="img-owner"/>
+          <text class="txt-num" a:if="{{item1.rankAbs!=0}}">{{item1.rankAbs}}</text>
+        </view>
+      </view>
+      <view class="user-img">
+        <image a:if="{{item1.headimg==null||item1.headimg==''}}" class="img-owner" mode="aspectFill" src="../../assets/images/user_pic.jpg"/>
+        <image a:else class="img-owner" mode="aspectFill" src="{{item1.headimg}}"/>
+      </view>
+      <view class="user-data">
+        <view class="member-name"><text class="txt-name">{{item1.userName}}</text></view>
+        <view class="member-group"><text class="txt-name">{{item1.term}}</text><text class="txt-team">/{{item1.teamName}}</text></view>
+      </view>
+      <view class="user-grade">
+        <view class="txt-value">{{item1.number}}</view>
+        <view class="txt-font">个人成绩</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="chart-content" a:if="{{currentChartData.categories.length>0}}">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="chart-panel">
+    <view class="chart-title">
+      <view class="title-date">
+        <view class="txt-h2" a:if="{{currentTeamID==12||currentTeamID==13||currentTeamID==16||currentTeamID==17||currentTeamID==21||currentTeamID==22||currentTeamID==25||currentTeamID==26}}">小组数据分析趋势图</view>
+        <view class="txt-h2" a:else>个人数据分析趋势图</view>
+        <view class="item-date">当前选中日期：{{chartCurrentDate}}</view>
+      </view>
+      <view class="chart-type">
+        <view class="type-panel">
+          <text class="item-type {{item.isOn?'on':''}}" data-type="{{item.type}}" onTap="clickChartType" a:for="{{chartType}}">{{item.name}}</text>
+        </view>
+      </view>
+    </view> 
+    <view class="chart-mark"></view>
+    <view class="chart-compare">
+      <block a:if="{{trendstatus==1}}">
+      <view class="item-compare {{changeData.daySort}}">
+        <view class="view-font"><text class="txt-font">本日</text><text class="txt-num">{{changeData.nowdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一日</text><text class="txt-num">{{changeData.lastdata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeDayFont}}</text>
+          <text class="txt-num">{{changeData.changeDayNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.daySort}}.png"/>
+        </view>
+      </view>
+      <view class="item-compare {{changeData.weekSort}}">
+        <view class="view-font"><text class="txt-font">本周</text><text class="txt-num">{{changeData.nowweekdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一周</text><text class="txt-num">{{changeData.lastweekdata}}</text></view>
+        <view class="view-font compare-num">
+            <text class="txt-font">{{changeData.changeWeekFont}}</text>
+            <text class="txt-num">{{changeData.changeWeekNum}}</text>
+            <image class="img-owner" src="../../assets/images/{{changeData.weekSort}}.png"/>
+        </view>
+      </view>
+      </block>
+      <block a:else>
+      <view class="item-compare {{changeData.monthSort}}">
+        <view class="view-font"><text class="txt-font">本月</text><text class="txt-num">{{changeData.nowmonthdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一月</text><text class="txt-num">{{changeData.lastmonthdata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeMonthFont}}</text>
+          <text class="txt-num">{{changeData.changeMonthNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.monthSort}}.png"/>
+        </view>
+      </view>
+      </block>
+    </view>
+    <view class="chart-map" a:if="{{currentChartData.categories.length>0}}">
+      <line
+        categories="{{currentChartData.categories}}"
+        series="{{currentChartData.series}}"
+        xAxis="{{currentChartData.xAxis}}"
+        yAxis="{{currentChartData.yAxis}}"
+        tooltip="{{currentChartData.tooltip}}"
+        legend="{{currentChartData.legend}}"
+        onTooltipChange= "_onTooltipChange"
+      />
+    </view>
+  </view>
+  <view class="contrast-panel" a:if="{{trendstatus==1}}">
+    <view class="contrast-data">
+      <view class="item-data">
+        <view class="vs-font {{changeData.monthSort}}">
+          <image class="img-owner" a:if="{{changeData.monthSort=='asc'}}" src="../../assets/images/icon_up.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='equal'}}" src="../../assets/images/icon_equal.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='des'}}" src="../../assets/images/icon_down.png"/>
+          <view class="txt-font"><text class="txt-char">{{changeData.changeMonthFont}}</text><block a:if="{{changeData.monthSort!='equal'}}">{{changeData.changeMonthNum}}个</block></view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.nowmonthdata}}个</view>
+          <view class="txt-font">本月个数</view>
+          <view class="txt-date">({{changeData.nowtime1}})</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lasttimedata}}个</view>
+          <view class="txt-font">上月同阶段个数</view>
+          <view class="txt-date">({{changeData.lasttime1}})</view>
+        </view>
+      </view>
+      <view class="last-month">
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lastmonthdata}}个</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-font">上月总个数</view>
+          <view class="txt-date">({{changeData.lastmonth}})</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+</block>
+<view class="footer team-footer" a:if="{{currentChartData.categories.length>0}}">
+  <view class="txt-p">
+    <text class="txt-line"></text>
+    <text class="txt-font">版权归红星机器所有</text>
+  </view>
+</view>
+</block>
+<view class="date-picker" a:if="{{datePicker.isShow}}">
+  <view class="picker-mark" onTap="hideDatePicker" animation="{{datePicker.animationInfo}}"></view><!--  -->
+  <view class="picker-content" animation="{{datePicker.animationData}}"><!--   -->
+    <view class="picker-header">
+      <text class="btn-cancel" onTap="hideDatePicker">取消</text>
+      <text class="txt-title">选择时间</text>
+      <text class="btn-save" onTap="getCurrentDateData">确定</text>
+    </view>
+    <view class="selected-panel">
+      <view class="txt-date {{dateType=='start'?'on':''}}" data-type="start" onTap="selectedDate">{{selectedDate.startDate}}<text class="default-font" a:if="{{selectedDate.startDate==''}}">开始日期</text></view>
+      <view class="txt-font">至</view>
+      <view class="txt-date {{dateType=='end'?'on':''}}" data-type="end" onTap="selectedDate">{{selectedDate.endDate}}<text class="default-font" a:if="{{selectedDate.endDate==''}}">结束日期</text></view>
+    </view>
+    <view class="delete-date"><view class="btn-delete" onTap="deleteDate"></view></view>
+    <view class="picker-wrap">
+    <block a:if="{{!isDelete}}">
+    <view class="picker-body">
+      <picker-view value="{{dateData.value}}" onChange="datePickerChange">
+        <picker-view-column>
+          <view a:for="{{dateData.years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData.months}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData.days}}">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+    </block>
+    </view>
+  </view>
+</view>
+<view class="date-picker" a:if="{{datePicker1.isShow}}">
+  <view class="picker-mark" onTap="hideDatePicker1" animation="{{datePicker1.animationInfo}}"></view><!--  -->
+  <view class="picker-content" animation="{{datePicker1.animationData}}"><!--   -->
+    <view class="picker-header">
+      <text class="btn-cancel" onTap="hideDatePicker1">取消</text>
+      <text class="txt-title">选择时间</text>
+      <text class="btn-save" onTap="getCurrentDateData1">确定</text>
+    </view>
+    <view class="picker-body">
+      <picker-view value="{{dateData1.value}}" onChange="datePickerChange1">
+        <picker-view-column>
+          <view a:for="{{dateData1.years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData1.months}}">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>
+<view class="abs-sub" a:if="{{isSubShow}}">
+  <view class="abs-mask" onTap="hideSubDialog"></view>
+  <view class="sub-list">
+    <view class="txt-h2">{{currentSubData.nameFont}}</view>
+    <view class="list-panel">
+      <view class="item-sub" a:for="{{currentSubData.dgroup}}"><text class="txt-font" data-id="{{item.id}}" onTap="subTeamClick">{{item.groupname}}</text></view>
+    </view>
+  </view>
+</view>

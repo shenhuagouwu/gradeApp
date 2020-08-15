@@ -1,0 +1,443 @@
+<view class="nav-panel" id="fixedNav">
+  <view class="item-nav" onTap="goToGourp"><text class="txt-nav">任务目标</text></view>
+  <view class="item-nav on"><text class="txt-nav">成绩中心</text></view>
+  <view class="item-nav" data-id="{{permissionsData.id}}" data-team="" data-name="{{permissionsData.name}}" onTap="goToMember"><text class="txt-nav">个人中心</text></view>
+  <view class="fixed-height" id="fixedLink"></view>
+</view>
+<view class="fixed-nav {{isFixedMenu?'on':''}}">
+  <view class="item-nav" onTap="goToGourp"><text class="txt-nav">任务目标</text></view>
+  <view class="item-nav on"><text class="txt-nav">成绩中心</text></view>
+  <view class="item-nav" data-id="{{permissionsData.id}}" data-team="" data-name="{{permissionsData.name}}" onTap="goToMember"><text class="txt-nav">个人中心</text></view>
+</view>
+<block a:if="{{!isLoading}}">
+<view class="date-total" id="date">
+  <view class="item-div date-div">
+    <view class="date" onTap="showDatePicker"><text class="txt-date">{{selectedDateFormat}}</text><text class="icon-arrow"></text></view>
+  </view>
+  <view class="item-div total-div" a:if="{{permissionsData.level==1}}">
+    <view class="txt-font">中文总计：{{initData.chinanumber}}</view>
+    <view class="txt-font">英文总计：{{initData.ennumber}}</view>
+  </view>
+</view>
+<view class="main-content" id="main">
+  <view class="scroll-team" a:if="{{isTeamFixed}}"></view>
+  <scroll-view id="fixedScroll" class="team-scroll {{isTeamFixed?'is-fixed':''}}" style="width: 100%;" scroll-x="{{true}}" scroll-with-animation="{{true}}" scroll-left="{{scrollLeft}}">
+    <block a:for="{{teamData}}">
+      <view class="item-team {{item.isOn?'on':''}}" key="{{item}}" id="scroll-{{item.id}}" data-id="{{item.id}}" onTap="scrollToPage">{{item.groupname}}</view>
+    </block>
+  </scroll-view>
+  <view class="team-content">
+    <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+    <block a:for="{{initData.data}}">
+      <view class="item-content" key="{{item}}" id="team-{{item.id}}">
+        <view class="txt-h2"><text class="txt-font">{{item.groupname}}</text></view>
+        <block a:if="{{item.id == 1 || item.id == 2}}">
+          <view class="data-div">
+            <block a:for="{{item.data}}" a:for-item="items">
+              <view class="item-data" key="{{items}}" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                <view class="flex-div team-div">
+                  <view class="item-table">
+                    <view class="item-td"><text class="txt-name">{{items.userName}}</text><text class="txt-group">{{items.groupName}}</text></view>
+                  </view>
+                </view>
+                <view class="flex-div day-div">
+                  <view class="item-table">
+                    <view class="item-td">
+                      <text class="txt-num {{items.su1==1?'win':''}}"><text class="txt-qty">{{items.nowdata}}</text></text>
+                      <text class="txt-font">当日个数</text>
+                      <text class="txt-date">{{items.nowtime}}</text>
+                    </view>
+                  </view>
+                </view>
+                <view class="flex-div month-div">
+                  <view class="item-table">
+                    <view class="item-td">
+                      <text class="txt-num {{items.su2==1?'win':''}}"><text class="txt-qty">{{items.monthdata}}</text></text>
+                      <text class="txt-font">当月个数</text>
+                      <text class="txt-date">{{items.month}}</text>
+                    </view>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+        </block>
+        <block a:if="{{item.id == 2}}" a:for="{{item.data}}" a:for-item="items">
+          <view class="notice" key="{{items}}">
+            <text class="txt-1">注</text>
+            <text class="txt-2">当天：</text>
+            <text class="txt-3">{{items.nowdata}}</text>
+            <text class="txt-4"> {{items.font}} </text>
+            <text class="txt-2">上月日均量：</text>
+            <text class="txt-3">{{items.lastmonthdata}}</text>
+            <view class="btn-brand {{items.isSonShow?'show':''}}" onTap="showSon" data-gid="{{item.id}}" data-id="{{items.id}}"><text class="txt-font">查看品牌</text><text class="icon-arrow"></text></view>
+          </view>
+          <view class="table-view only-brand" a:if="{{items.isSonShow}}">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">品牌</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{items.nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{items.month}}</text></view>
+            </view>
+            <view class="body-table">
+              <view class="item-view">
+                <view class="son-table">
+                  <view class="item-table" a:for="{{items.brandinfo}}" a:for-item="item1" key="{{item1}}">
+                    <view class="td-view"><text class="txt-name">{{item1.brand}}</text></view>
+                    <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                    <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </block>
+        <block a:if="{{item.id == 3&&(item.data.length>2||item.data.length==2)}}">
+          <view class="table-view">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">姓名</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{item.data[0].nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
+            </view>
+            <view class="body-table">
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id!=14}}">
+                <!-- <view class="item-view">1</view> -->
+                <view class="item-view" key="{{items.id}}">
+                
+                  <view class="parent-panel">
+                    <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                      <view class="td-view">
+                        <text class="txt-name">{{items.userName}}</text>
+                        <text class="txt-group">- {{items.groupName}}</text>
+                      </view>
+                      <view class="td-view"><text class="txt-num {{items.su1==1?'win':''}}"><text class="txt-qty">{{items.nowdata}}</text></text></view>
+                      <view class="td-view"><text class="txt-total {{items.su2==1?'win':''}}"><text class="txt-qty">{{items.monthdata}}</text></text></view>
+                    </view>
+                    <view class="btn-son {{items.isSonShow?'show':''}}" a:if="{{items.hasSon}}" onTap="showSon" data-gid="{{item.id}}" data-id="{{items.id}}"></view>
+                  </view>
+                  <block a:if="{{items.isSonShow}}">
+                      <block>
+                        <view class="son-table">
+                          <view class="item-table" a:for="{{items.user}}" a:for-item="item1" data-id="{{item1.user_id}}" data-team="{{items.id}}" data-name="{{item1.uname}}" onTap="goToPersonDetail">
+                            <view class="td-view"><text class="txt-name">{{item1.uname}}</text></view>
+                            <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                            <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                          </view>
+                        </view>
+                      </block>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </view>
+          <block a:if="{{(item.id == 3)&&item.top5Chart.categories.length>0}}">
+            <view class="chart-members">
+              <view class="txt-h3"><text class="txt-font">组员询盘个数</text><text class="txt-red">TOP5</text></view>
+              <view class="txt-des">本表展示数据日期：{{selectedDateFormat}}</view>
+              <view class="chart-cavans">
+                <column
+                  categories="{{item.top5Chart.categories}}"
+                  series="{{item.top5Chart.series}}"
+                  xAxis="{{item.top5Chart.xAxis}}"
+                  yAxis="{{item.top5Chart.yAxis}}"
+                  legend="{{item.top5Chart.legend}}"
+                  coord="{{item.top5Chart.coord}}"
+                />
+              </view>
+            </view>
+          </block>
+        </block>
+        <!-- <block a:if="{{(item.id == 3&&item.data.length>1)||(item.id == 3&&item.data.length==1&&item.data[0].id==14)}}">
+          <view class="table-view {{item.data.length>1?'zyf':''}}">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">姓名</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{item.data[0].nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
+            </view>
+            <view class="body-table">
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id==14}}">
+                <view class="item-view" key="{{items}}">
+                  <view class="parent-panel">
+                    <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                      <view class="td-view">
+                        <text class="txt-name">{{items.userName}}</text>
+                        <text class="txt-group">- {{items.groupName}}</text>
+                      </view>
+                      <view class="td-view"><text class="txt-num"><text class="txt-qty">{{items.nowdata}}</text></text></view>
+                      <view class="td-view"><text class="txt-total"><text class="txt-qty">{{items.monthdata}}</text></text></view>
+                    </view>
+                    <view class="btn-son {{items.isSonShow?'show':''}}" a:if="{{items.hasSon}}" onTap="showSon" data-gid="{{item.id}}" data-id="{{items.id}}"></view>
+                  </view>
+                  <block a:if="{{items.isSonShow}}">
+                  <block>
+                    <view class="son-table">
+                      <view class="item-table" a:for="{{items.user}}" a:for-item="item1" data-id="{{item1.user_id}}" data-team="{{items.id}}" data-name="{{item1.uname}}" onTap="goToPersonDetail">
+                        <view class="td-view"><text class="txt-name">{{item1.uname}}</text></view>
+                        <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                        <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                      </view>
+                    </view>
+                  </block>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block> -->
+        <block a:if="{{item.id == 4||item.id == 7}}">
+          <view class="table-view">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">姓名</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{item.data[0].nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
+            </view>
+            <view class="body-table">
+              <block a:for="{{item.data}}" a:for-item="items">
+                <view class="item-view" key="{{items}}">
+                  <view class="parent-panel">
+                    <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                      <view class="td-view">
+                        <text class="txt-name">{{items.userName}}</text>
+                        <text class="txt-group">- {{items.groupName}}</text>
+                      </view>
+                      <view class="td-view"><text class="txt-num {{items.su1==1&&item.id!=3?'win':''}}"><text class="txt-qty">{{items.nowdata}}</text></text></view>
+                      <view class="td-view"><text class="txt-total {{items.su2==1&&item.id!=3?'win':''}}"><text class="txt-qty">{{items.monthdata}}</text></text></view>
+                    </view>
+                    <view class="btn-son {{items.isSonShow?'show':''}}" a:if="{{items.hasSon}}" onTap="showSon" data-gid="{{item.id}}" data-id="{{items.id}}"></view>
+                  </view>
+                  <block a:if="{{items.isSonShow}}">
+                  <block a:if="{{item.id == 5}}">
+                    <view class="son-table" a:if="{{items.id!=17}}">
+                      <view class="item-table" a:for="{{items.brandinfo}}" a:for-item="item1">
+                        <view class="td-view"><text class="txt-name">{{item1.brand}}</text></view>
+                        <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                        <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                      </view>
+                    </view>
+                  </block>
+                  <block a:else>
+                    <view class="son-table">
+                      <view class="item-table" a:for="{{items.user}}" a:for-item="item1" data-id="{{item1.user_id}}" data-team="{{items.id}}" data-name="{{item1.uname}}" onTap="goToPersonDetail">
+                        <view class="td-view"><text class="txt-name">{{item1.uname}}</text></view>
+                        <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                        <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                      </view>
+                    </view>
+                  </block>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </view>
+          <block a:if="{{item.top5Chart.categories.length>0}}">
+            <view class="chart-members">
+              <view class="txt-h3"><text class="txt-font">{{item.groupname}}组员询盘个数</text><text class="txt-red">TOP5</text></view>
+              <view class="txt-des">本表展示数据日期：{{selectedDateFormat}}</view>
+              <view class="chart-cavans">
+                <column
+                  categories="{{item.top5Chart.categories}}"
+                  series="{{item.top5Chart.series}}"
+                  xAxis="{{item.top5Chart.xAxis}}"
+                  yAxis="{{item.top5Chart.yAxis}}"
+                  legend="{{item.top5Chart.legend}}"
+                  coord="{{item.top5Chart.coord}}"
+                />
+              </view>
+            </view>
+          </block>
+        </block>
+        <block a:if="{{item.id == 5&&(item.data.length>2||item.data.length==2)}}">
+          <view class="table-view">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">姓名</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{item.data[0].nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
+            </view>
+            <view class="body-table">
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id!=17}}">
+                <view class="item-view" key="{{items}}">
+                  <view class="parent-panel">
+                    <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                      <view class="td-view">
+                        <text class="txt-name">{{items.userName}}</text>
+                        <text class="txt-group">- {{items.groupName}}</text>
+                      </view>
+                      <view class="td-view"><text class="txt-num {{items.su1==1?'win':''}}"><text class="txt-qty">{{items.nowdata}}</text></text></view>
+                      <view class="td-view"><text class="txt-total {{items.su2==1?'win':''}}"><text class="txt-qty">{{items.monthdata}}</text></text></view>
+                    </view>
+                    <view class="btn-son {{items.isSonShow?'show':''}}" a:if="{{items.hasSon}}" onTap="showSon" data-gid="{{item.id}}" data-id="{{items.id}}"></view>
+                  </view>
+                  <block a:if="{{items.isSonShow}}">
+                  <block>
+                    <view class="son-table">
+                      <view class="item-table" a:for="{{items.brandinfo}}" a:for-item="item1">
+                        <view class="td-view"><text class="txt-name">{{item1.brand}}</text></view>
+                        <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                        <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                      </view>
+                    </view>
+                  </block>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block>
+        <!-- <block a:if="{{(item.id == 5&&item.data.length>1)||(item.id == 5&&item.data.length==1&&item.data[0].id==17)}}">
+          <view class="table-view {{item.data.length>1?'zyf':''}}">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">姓名</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{item.data[0].nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
+            </view>
+            <view class="body-table">
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id==17}}">
+                <view class="item-view" key="{{items}}">
+                  <view class="parent-panel">
+                    <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                      <view class="td-view">
+                        <text class="txt-name">{{items.userName}}</text>
+                        <text class="txt-group">- {{items.groupName}}</text>
+                      </view>
+                      <view class="td-view"><text class="txt-num"><text class="txt-qty">{{items.nowdata}}</text></text></view>
+                      <view class="td-view"><text class="txt-total"><text class="txt-qty">{{items.monthdata}}</text></text></view>
+                    </view>
+                  </view>
+                </view>
+              </block>
+            </view>
+          </view>
+        </block> -->
+        <view class="btm-div"></view>
+        <view class="item-div"></view>
+      </view>
+    </block>
+  </view>
+</view>
+<view class="chart-content">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="chart-panel">
+    <view class="chart-title">
+      <view class="title-date">
+        <view class="txt-h2">数据分析趋势图</view>
+        <view class="item-date">当前选中日期：{{chartCurrentDate}}</view>
+      </view>
+      <view class="chart-type">
+        <view class="type-panel">
+          <text class="item-type {{item.isOn?'on':''}}" data-type="{{item.type}}" onTap="clickChartType" a:for="{{chartType}}">{{item.name}}</text>
+        </view>
+      </view>
+    </view> 
+    <view class="line-list">
+      <view class="item-line {{item.isOn?'on':''}}" a:for="{{currentAreaTooltip}}" key="{{item}}" data-id="{{item.id}}" onTap="subGoupChartClick"><text class="line-circle" style="background-color:{{item.color}};"></text><text class="item-value">{{item.value}}</text><text class="item-name"><text class="txt-group">{{item.group}}-</text><text class="txt-name">{{item.name}}</text></text></view>
+    </view>
+    <view class="chart-mark"></view>
+    <view class="chart-compare">
+      <block a:if="{{trendstatus==1}}">
+      <view class="item-compare {{changeData.daySort}}">
+        <view class="view-font"><text class="txt-font">本日</text><text class="txt-num">{{changeData.nowdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一日</text><text class="txt-num">{{changeData.lastdata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeDayFont}}</text>
+          <text class="txt-num">{{changeData.changeDayNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.daySort}}.png"/>
+        </view>
+      </view>
+      <view class="item-compare {{changeData.weekSort}}">
+        <view class="view-font"><text class="txt-font">本周</text><text class="txt-num">{{changeData.nowweekdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一周</text><text class="txt-num">{{changeData.lastweekdata}}</text></view>
+        <view class="view-font compare-num">
+            <text class="txt-font">{{changeData.changeWeekFont}}</text>
+            <text class="txt-num">{{changeData.changeWeekNum}}</text>
+            <image class="img-owner" src="../../assets/images/{{changeData.weekSort}}.png"/>
+        </view>
+      </view>
+      </block>
+      <block a:else>
+      <view class="item-compare {{changeData.monthSort}}">
+        <view class="view-font"><text class="txt-font">本月</text><text class="txt-num">{{changeData.nowmonthdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一月</text><text class="txt-num">{{changeData.lasttimedata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeMonthFont}}</text>
+          <text class="txt-num">{{changeData.changeMonthNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.monthSort}}.png"/>
+        </view>
+      </view>
+      </block>
+    </view>
+    <view class="chart-map" a:if="{{currentChartData.categories.length>0}}">
+      <line
+        categories="{{currentChartData.categories}}"
+        series="{{currentChartData.series}}"
+        xAxis="{{currentChartData.xAxis}}"
+        yAxis="{{currentChartData.yAxis}}"
+        tooltip="{{currentChartData.tooltip}}"
+        legend="{{currentChartData.legend}}"
+        onTooltipChange= "_onTooltipChange"
+      />
+    </view>
+  </view>
+  <view class="team-type">
+    <view class="item-team {{item.isOn?'on':''}}" a:for="{{initData.footer}}" key="{{item}}" data-id="{{item.id}}" onTap="clickTeamChart"><text class="txt-font">{{item.font1}}</text><text class="txt-font">{{item.font2}}</text></view>
+  </view>
+  <view class="contrast-panel" a:if="{{trendstatus==1}}">
+    <view class="contrast-data">
+      <view class="item-data">
+        <view class="vs-font {{changeData.monthSort}}">
+          <image class="img-owner" a:if="{{changeData.monthSort=='asc'}}" src="../../assets/images/icon_up.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='equal'}}" src="../../assets/images/icon_equal.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='des'}}" src="../../assets/images/icon_down.png"/>
+          <view class="txt-font"><text class="txt-char">{{changeData.changeMonthFont}}</text><block a:if="{{changeData.monthSort!='equal'}}">{{changeData.changeMonthNum}}个</block></view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.nowmonthdata}}个</view>
+          <view class="txt-font">本月个数</view>
+          <view class="txt-date">({{changeData.nowtime1}})</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lasttimedata}}个</view>
+          <view class="txt-font">上月同阶段个数</view>
+          <view class="txt-date">({{changeData.lasttime1}})</view>
+        </view>
+      </view>
+      <view class="last-month">
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lastmonthdata}}个</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-font">上月总个数</view>
+          <view class="txt-date">({{changeData.lastmonth}})</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="footer team-footer">
+  <view class="txt-p">
+    <text class="txt-line"></text>
+    <text class="txt-font">版权归红星机器所有</text>
+  </view>
+</view>
+</block>
+<view class="date-picker" a:if="{{datePicker.isShow}}">
+  <view class="picker-mark" onTap="hideDatePicker" animation="{{datePicker.animationInfo}}"></view><!--  -->
+  <view class="picker-content" animation="{{datePicker.animationData}}"><!--   -->
+    <view class="picker-header">
+      <text class="btn-cancel" onTap="hideDatePicker">取消</text>
+      <text class="txt-title">选择时间</text>
+      <text class="btn-save" onTap="getCurrentDateData">确定</text>
+    </view>
+    <view class="picker-body">
+      <picker-view value="{{dateData.value}}" onChange="datePickerChange">
+        <picker-view-column>
+          <view a:for="{{dateData.years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData.months}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData.days}}">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>

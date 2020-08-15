@@ -1,0 +1,9 @@
+{
+    "component": true,
+    "usingComponents": {
+        "line": "../../components/line/index"
+    },
+    "window": {
+        "titleBarColor": "#5b6e9f"
+    }
+}

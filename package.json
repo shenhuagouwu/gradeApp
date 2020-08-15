@@ -1,0 +1,18 @@
+{
+  "name": "calendar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@antv/my-f2": "^1.1.4"
+  },
+  "tnpm": {
+    "mode": "yarn",
+    "lockfile": "enable"
+  }
+}

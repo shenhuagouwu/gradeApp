@@ -1,0 +1,184 @@
+
+
+<block a:if="{{!isLoading}}">
+<view class="combine-compare">
+  <view class="compare-panel">
+    <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+    <view class="compare-title">
+      <view class="combine-title"><text class="txt-name">{{initData.teamName}}{{initData.userName}}各团队<block a:if="{{lang=='cn'}}">目标</block><block a:else>成绩</block></text></view>
+      <view class="line"></view>
+      <view class="date" onTap="showDatePicker"><text class="txt-date">{{selectedDate}}</text><text class="icon-arrow"></text></view>
+    </view>
+    <view class="chart-mark mark-top"></view>
+    <view class="grade-panel">
+      <view class="item-grade">
+        <view class="txt-p txt-total">{{initData.sum}}</view>
+      </view>
+      <view class="item-grade">
+        <view class="txt-p txt-font">当月总个数</view>
+        <view class="txt-p txt-date">{{initData.time}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="task-panel">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="task-content">
+    <view class="item-group" a:if="{{lang=='cn'}}">
+      <view class="txt-h2">任务目标</view>
+      <view class="team-list">
+        <view class="team-line"></view>
+        <view class="item-team" a:for="{{initData.grouplist}}" key="{{items}}" a:for-item="items" onTap="goToSubGroup" data-brand="{{items.brand}}" data-id="{{items.uid}}">
+          <view class="team-name-panel">
+            <text class="txt-name">{{items.userName}}</text>
+            <text class="txt-team">{{items.groupName}}</text>
+          </view>
+          <view class="team-task">
+            <view class="task-range">
+              <view class="range-mask" style="width: {{items.percentRange}}">
+                <view class="txt-font no-task" a:if="{{items.mnumber==2000&&(items.uid==12||items.uid==13)}}"><text class="color-percent">占比 {{items.percentFont}}</text></view>
+                <view class="txt-font" a:else><text class="color-percent">进度 {{items.percentFont}}</text><text class="date-percent">时间 {{items.datePercent}}</text></view>
+              </view>
+              <view class="date-range" style="width: {{items.datePercent}}"></view>
+              <view class="color-range" style="width:{{items.percent}};"></view>
+            </view>
+            <view class="task-font no-task" a:if="{{items.mnumber==2000&&(items.uid==12||items.uid==13)}}"><text class="txt-span txt-font">小组询盘</text><text class="txt-span txt-current">{{items.number}}</text><text class="txt-span txt-font">/中文优化总询盘</text><text class="txt-span txt-current">{{items.totalNum}}</text></view>
+            <view class="task-font" a:else><text class="txt-span txt-font">目标</text><text class="txt-span txt-current">{{items.number}}</text><text class="txt-span txt-total">/{{items.mnumber}}</text></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="item-group" a:else>
+      <view class="txt-h2">{{initData.teamName}}</view>
+      <view class="en-list">
+        <view class="item-en" a:for="{{initData.grouplist}}" key="{{items}}" a:for-item="items" onTap="goToSubGroup" data-id="{{items.uid}}">
+          <view class="txt-p txt-num">{{items.number}}</view>
+          <view class="txt-p txt-name">{{items.userName}}</view>
+          <view class="txt-p txt-team">({{items.groupName}})</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="chart-content">
+  <view class="water-mark" style="background-image:url({{waterMark.filePath}})"></view>
+  <view class="chart-panel">
+    <view class="chart-title">
+      <view class="title-date">
+        <view class="txt-h2">数据分析趋势图</view>
+        <view class="item-date">当前选中日期：{{chartCurrentDate}}</view>
+      </view>
+      <view class="chart-type">
+        <view class="type-panel">
+          <text class="item-type {{item.isOn?'on':''}}" data-type="{{item.type}}" onTap="clickChartType" a:for="{{chartType}}">{{item.name}}</text>
+        </view>
+      </view>
+    </view> 
+    <view class="line-list">
+      <view class="item-line {{item.isOn?'on':''}}" a:for="{{currentAreaTooltip}}" key="{{item}}" data-brand="{{item.brand}}" data-type="{{item.isCombine}}" data-id="{{item.id}}" onTap="subGoupChartClick"><text class="line-circle" style="background-color:{{item.color}};"></text><text class="item-value">{{item.value}}</text><text class="item-name"><text class="txt-group">{{item.group}}-</text><text class="txt-name">{{item.name}}</text></text></view>
+    </view>
+    <view class="chart-mark"></view>
+    <view class="chart-compare">
+      <block a:if="{{trendstatus==1}}">
+      <view class="item-compare {{changeData.daySort}}">
+        <view class="view-font"><text class="txt-font">本日</text><text class="txt-num">{{changeData.nowdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一日</text><text class="txt-num">{{changeData.lastdata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeDayFont}}</text>
+          <text class="txt-num">{{changeData.changeDayNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.daySort}}.png"/>
+        </view>
+      </view>
+      <view class="item-compare {{changeData.weekSort}}">
+        <view class="view-font"><text class="txt-font">本周</text><text class="txt-num">{{changeData.nowweekdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一周</text><text class="txt-num">{{changeData.lastweekdata}}</text></view>
+        <view class="view-font compare-num">
+            <text class="txt-font">{{changeData.changeWeekFont}}</text>
+            <text class="txt-num">{{changeData.changeWeekNum}}</text>
+            <image class="img-owner" src="../../assets/images/{{changeData.weekSort}}.png"/>
+        </view>
+      </view>
+      </block>
+      <block a:else>
+      <view class="item-compare {{changeData.monthSort}}">
+        <view class="view-font"><text class="txt-font">本月</text><text class="txt-num">{{changeData.nowmonthdata}}</text></view>
+        <view class="view-font"><text class="txt-font">上一月</text><text class="txt-num">{{changeData.lasttimedata}}</text></view>
+        <view class="view-font compare-num">
+          <text class="txt-font">{{changeData.changeMonthFont}}</text>
+          <text class="txt-num">{{changeData.changeMonthNum}}</text>
+          <image class="img-owner" src="../../assets/images/{{changeData.monthSort}}.png"/>
+        </view>
+      </view>
+      </block>
+    </view>
+    <view class="chart-map" a:if="{{currentChartData.categories.length>0}}">
+      <line
+        categories="{{currentChartData.categories}}"
+        series="{{currentChartData.series}}"
+        xAxis="{{currentChartData.xAxis}}"
+        yAxis="{{currentChartData.yAxis}}"
+        tooltip="{{currentChartData.tooltip}}"
+        legend="{{currentChartData.legend}}"
+        onTooltipChange= "_onTooltipChange"
+      />
+    </view>
+  </view>
+  <view class="contrast-panel" a:if="{{trendstatus==1}}">
+    <view class="contrast-data">
+      <view class="item-data">
+        <view class="vs-font {{changeData.monthSort}}">
+          <image class="img-owner" a:if="{{changeData.monthSort=='asc'}}" src="../../assets/images/icon_up.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='equal'}}" src="../../assets/images/icon_equal.png"/>
+          <image class="img-owner" a:if="{{changeData.monthSort=='des'}}" src="../../assets/images/icon_down.png"/>
+          <view class="txt-font"><text class="txt-char">{{changeData.changeMonthFont}}</text><block a:if="{{changeData.monthSort!='equal'}}">{{changeData.changeMonthNum}}个</block></view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.nowmonthdata}}个</view>
+          <view class="txt-font">本月个数</view>
+          <view class="txt-date">({{changeData.nowtime1}})</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lasttimedata}}个</view>
+          <view class="txt-font">上月同阶段个数</view>
+          <view class="txt-date">({{changeData.lasttime1}})</view>
+        </view>
+      </view>
+      <view class="last-month">
+        <view class="item-panel">
+          <view class="txt-num">{{changeData.lastmonthdata}}个</view>
+        </view>
+        <view class="item-panel">
+          <view class="txt-font">上月总个数</view>
+          <view class="txt-date">({{changeData.lastmonth}})</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="footer">
+  <view class="txt-p">
+    <text class="txt-line"></text>
+    <text class="txt-font">版权归红星机器所有</text>
+  </view>
+</view>
+<block>
+<view class="date-picker" a:if="{{datePicker.isShow}}">
+  <view class="picker-mark" onTap="hideDatePicker" animation="{{datePicker.animationInfo}}"></view><!--  -->
+  <view class="picker-content" animation="{{datePicker.animationData}}"><!--   -->
+    <view class="picker-header">
+      <text class="btn-cancel" onTap="hideDatePicker">取消</text>
+      <text class="txt-title">选择时间</text>
+      <text class="btn-save" onTap="getCurrentDateData">确定</text>
+    </view>
+    <view class="picker-body">
+      <picker-view value="{{dateData.value}}" onChange="datePickerChange">
+        <picker-view-column>
+          <view a:for="{{dateData.years}}">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+          <view a:for="{{dateData.months}}">{{item}}</view>
+        </picker-view-column>
+      </picker-view>
+    </view>
+  </view>
+</view>

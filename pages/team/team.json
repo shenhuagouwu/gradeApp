@@ -1,0 +1,8 @@
+{
+    "component": true,
+    "usingComponents": {
+        "column": "../../components/column/index",
+        "line": "../../components/line/index"
+    },
+    "defaultTitle": "成绩中心"
+}
