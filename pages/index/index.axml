@@ -93,40 +93,27 @@
         </view>
         <view class="item-comThree" a:if="{{isEnShow}}">
           <view class="item-font">英文SNS成交个数对比</view>
-          <view class="item-comThreebox" a:if="{{initData.ensnscompare.length>0}}">
-                <view class="item-comThreepanel panelblue {{initData.ensnsRt?'win':''}}" onTap="goToSubGroup" data-lang="en" data-id="{{initData.ensnscompare[1].uid}}">
-                  <view class="txt-name">英文A1＋A2</view>
+          <view class="item-comThreebox" a:if="{{initData.ensnscompare.compare.length>0}}">
+                <view class="item-comThreepanel panelblue {{initData.ensnsCompareLf?'win':''}}" onTap="goToSubGroup" data-lang="en" data-id="{{initData.ensnscompare.compare[0].uid}}">
+                  <view class="txt-name">{{initData.ensnscompare.compare[0].name}}</view>
                 </view>
                 <view class="num-panel">
-                    <text class="blue-panel">{{initData.ensnscompare[1].number}}</text>
+                    <text class="blue-panel">{{initData.ensnscompare.compare[0].number}}</text>
                     <text class="txt-colon">:</text>
-                    <text class="red-panel">{{initData.ensnscompare[0].number}}</text>
+                    <text class="red-panel">{{initData.ensnscompare.compare[1].number}}</text>
                 </view>
-                <view class="item-comThreepanel panelred {{initData.ensnsLf?'win':''}}" onTap="goToSubGroup" data-lang="en" data-id="{{initData.ensnscompare[0].uid}}">
-                  <view class="txt-name">英文C1＋C2</view>
+                <view class="item-comThreepanel panelred {{initData.ensnsCompareRt?'win':''}}" onTap="goToSubGroup" data-lang="en" data-id="{{initData.ensnscompare.compare[1].uid}}">
+                  <view class="txt-name">{{initData.ensnscompare.compare[1].name}}</view>
                 </view>
           </view>
-          <view class="item-comThreebom">
-                <view class="item-comThreebom_item numcolor01">
-                      <text class="Three_number">50</text>
-                      <text class="Three_name">毋萌菲</text>
-                      <text class="Three_groupName">(英文A1组)</text>
+          <view class="item-comThreebom" a:if="{{initData.ensnscompare.group.length>0}}">          
+              <block a:for="{{initData.ensnscompare.group}}" a:for-item="item">
+                <view class="item-comThreebom_item numcolor0{{item.classNum}}">
+                      <text class="Three_number {{initData.ensnscompareGroupmaxNum==item.number?'win':''}}"><text class="Three_numbertext">{{item.number}}</text></text>
+                      <text class="Three_name">{{item.userName}}</text>
+                      <text class="Three_groupName">({{item.groupName}})</text>
                 </view>
-                <view class="item-comThreebom_item numcolor02">
-                      <text class="Three_number">30</text>
-                      <text class="Three_name">周会琳</text>
-                      <text class="Three_groupName">(英文A2组)</text>
-                </view>
-                <view class="item-comThreebom_item numcolor03">
-                      <text class="Three_number">40</text>
-                      <text class="Three_name">李永芳</text>
-                      <text class="Three_groupName">(英文C1组)</text>
-                </view>
-                <view class="item-comThreebom_item numcolor04">
-                      <text class="Three_number">20</text>
-                      <text class="Three_name">黄贝贝</text>
-                      <text class="Three_groupName">(英文C2组)</text>
-                </view>
+              </block>
           </view>
         </view>
         <view class="item-comFour" a:if="{{!isEnShow}}">
@@ -138,12 +125,17 @@
   <view class="task-content">
     <view class="item-group" a:if="{{initData.chinagroup.length>0}}">
       <view class="txt-h2">中文各团队目标完成情况</view>
-      <view class="range-font"><text class="color-font">进度(%)</text><text class="date-font">时间(%)</text></view>
-      <view class="item-combine" a:for="{{initData.chinagroup}}" key="{{item}}" a:if="{{item.son.length>0}}">
-        <view class="txt-h3" data-id="{{item.gid}}" data-lang="cn" onTap="goToCombine">{{item.name}}</view>
+      <view class="item-combine combineColor0{{item.gid}}" a:for="{{initData.chinagroup}}" key="{{item}}" a:if="{{item.son.length>0}}">
+        <view class="txt-h3" data-id="{{item.gid}}" data-lang="cn" data-tename="{{item.name}}" onTap="goToCombine">
+             {{item.name}}             
+             <view class="range-font">
+                  <text class="color-font">进度(%)</text>
+                  <text class="date-font">时间(%)</text>
+             </view>
+        </view>
         <view class="team-list">
           <view class="team-line"></view>
-          <view class="item-team" a:for="{{item.son}}" key="{{items}}" a:for-item="items" onTap="goToSubGroup" data-brand="{{items.brand}}" data-lang="cn" data-id="{{items.id}}">
+          <view class="item-team" a:for="{{item.son}}" key="{{items}}" a:for-item="items" onTap="goToSubGroup" data-brand="{{items.brand}}" data-lang="cn" data-tename="{{item.name}}" data-id="{{items.id}}">
             <view class="team-name-panel">
               <text class="txt-name">{{items.userName}}</text>
               <text class="txt-team">{{items.groupName}}</text>
@@ -164,7 +156,7 @@
         </view>
       </view>
     </view>
-    <view class="item-group" a:if="{{initData.engroup.length>0||initData.enothergroup.length>0}}">
+    <view class="item-group" a:if="{{initData.engroup.length>0}}">
       <view class="txt-h2">英文各团队目标完成情况</view>
       <view class="item-combine" a:if="{{initData.engroup.length>0}}" a:for="{{initData.engroup}}" key="{{item}}">
         <view class="txt-h3" data-id="{{item.gid}}" data-lang="en" onTap="goToCombine">{{item.name}}</view>
@@ -173,28 +165,6 @@
             <view class="txt-p txt-num">{{items.number}}</view>
             <view class="txt-p txt-name">{{items.userName}}</view>
             <view class="txt-p txt-team">({{items.groupName}})</view>
-          </view>
-        </view>
-      </view>
-      <view class="item-combine" a:if="{{initData.enothergroup.length>0}}" a:for="{{initData.enothergroup}}" key="{{item}}">
-        <view class="txt-h3">{{item.name}}</view>
-        <view class="team-list">
-          <view class="team-line"></view>
-          <view class="item-team" a:for="{{item.son}}" key="{{items}}" a:for-item="items" onTap="goToSubGroup" data-lang="en" data-id="{{items.id}}">
-            <view class="team-name-panel">
-              <text class="txt-name">{{items.userName}}</text>
-              <text class="txt-team">{{items.groupName}}</text>
-            </view>
-            <view class="team-task">
-              <view class="task-range">
-                <view class="range-mask" style="width: {{items.percentRange}}">
-                  <view class="txt-font"><text class="color-percent">进度 {{items.percentFont}}</text><text class="date-percent">时间 {{items.datePercent}}</text></view>
-                </view>
-                <view class="date-range" style="width: {{items.datePercent}}"></view>
-                <view class="color-range" style="width:{{items.percent}};"></view>
-              </view>
-              <view class="task-font"><text class="txt-span txt-font">目标</text><text class="txt-span txt-current">{{items.number}}</text><text class="txt-span txt-total">/{{items.mnumber}}</text></view>
-            </view>
           </view>
         </view>
       </view>

@@ -10,6 +10,7 @@ Page({
     dateData:{},
     currentID:"",
     lang:'',
+    tename:'',
     pageType:'combine',
     isLoading:true,
     initData:{},
@@ -34,6 +35,7 @@ Page({
     var $this = this;
     $this.hideDatePicker();
     var lang = query.lang;
+    var tename = query.tename;
     if(lang=='cn'){
       dd.setNavigationBar({
         title: '组合目标',
@@ -80,6 +82,7 @@ Page({
               selectedDateFormat,
               permissionsData,
               lang,
+              tename,
               chartType,
               trendstatus
             },function(){

@@ -1101,7 +1101,7 @@ Page({
     var currentSubData = [];
     var currentParentName = "";
     var currentTeamName = "";
-    if(tagName=="中文组"||tagName=="英文组"){
+    if(tagName=="中文组"||tagName=="英文组"||tagName=="技术团队"||tagName=="其他"){
       isSubShow = true;
       userList.forEach(function(item,index){
         if(item.nameFont == tagName){
@@ -1202,7 +1202,7 @@ Page({
         time:currentDate
       },
       dataType: 'json',
-      success: function(res) {
+      success: function(res) { console.log(res,'res个人中心')
         if(isList){
           var userList = [];
           var allList = {};
@@ -1229,7 +1229,9 @@ Page({
               allList.dgroup.push(items);
             });
           });
+                console.log(allList,"allList");
           userList.push(allList)
+                console.log(userList,"userList");
           res.data.data.forEach(function(item,index){
             userList.push(item);
           });

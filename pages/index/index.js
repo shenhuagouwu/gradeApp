@@ -210,7 +210,7 @@ Page({
           });
           var num1 = parseInt(initData.chinasnscompare[0].number);
           var num2 = parseInt(initData.chinasnscompare[1].number);
-          initData.totalNum = num1+num2;
+          //initData.totalNum = num1+num2;
           if(num1>num2){
             initData.cnsnsLf = true;
             initData.cnsnsRt = false;
@@ -229,7 +229,7 @@ Page({
           });
           var num1 = parseInt(initData.enpushcompare[0].number);
           var num2 = parseInt(initData.enpushcompare[1].number);
-          initData.totalNum = num1+num2;
+          //initData.totalNum = num1+num2;
           if(num1>num2){
             initData.enpushLf = true;
             initData.enpushRt = false;
@@ -241,24 +241,35 @@ Page({
             initData.enpushRt = false;
           }
         }
-        if(initData.ensnscompare.length>0){
-          initData.ensnscompare.forEach(function(item,index){
+        if(initData.ensnscompare.compare.length>0){
+          var num1 = parseInt(initData.ensnscompare.compare[0].number);
+          var num2 = parseInt(initData.ensnscompare.compare[1].number);
+          if(num1>num2){
+            initData.ensnsCompareLf = true;
+            initData.ensnsCompareRt = false;
+          }else if(num1<num2){
+            initData.ensnsCompareLf = false;
+            initData.ensnsCompareRt = true;
+          }else{
+            initData.ensnsCompareLf = false;
+            initData.ensnsCompareRt = false;
+          }
+        }
+        if(initData.ensnscompare.group.length>0){
+          var classNum = 0;
+          var maxNum = 0;
+          initData.ensnscompare.group.forEach(function(item,index){
             item.groupName = item.name.split("-")[0];
             item.userName = item.name.split("-")[1];
+            classNum += 1;
+            item.classNum=classNum;
+            if(maxNum<=item.number){
+                maxNum=item.number;
+            }else{
+              maxNum=maxNum;
+            }
           });
-          var num1 = parseInt(initData.ensnscompare[0].number);
-          var num2 = parseInt(initData.ensnscompare[1].number);
-          initData.totalNum = num1+num2;
-          if(num1>num2){
-            initData.ensnsLf = true;
-            initData.ensnsRt = false;
-          }else if(num1<num2){
-            initData.ensnsLf = false;
-            initData.ensnsRt = true;
-          }else{
-            initData.ensnsLf = false;
-            initData.ensnsRt = false;
-          }
+          initData.ensnscompareGroupmaxNum = maxNum;
         }
         initData.cnLfPercent = parseInt(a)+"%";
         initData.cnRtPercent = 100 - parseInt(a) + "%";
@@ -320,27 +331,6 @@ Page({
             items.number = parseInt(items.number);
           });
           $this.CustomSort(item.son);
-        });
-        initData.enothergroup.forEach(function(item,index){
-          item.son.forEach(function(items,idx){
-            items.groupName = items.name.split("-")[0];
-            items.userName = items.name.split("-")[1];
-            items.number = parseInt(items.number);
-            var percent = parseInt(items.number)/parseInt(items.mnumber)*100;
-            items.percentFont = parseInt(percent)+"%";
-            if(percent>100){
-              percent = 100
-            }
-            if(percent<datePercent){
-              items.percentRange = datePercent+'%';
-            }else if(percent>datePercent){
-              items.percentRange = percent+'%';
-            }else{
-              items.percentRange = datePercent+'%';
-            }
-            items.datePercent = datePercent+'%';
-            items.percent = parseInt(percent)+'%';
-          });
         });
         isLoading = false;        
         var today =  $this.getToday();
@@ -414,10 +404,11 @@ Page({
     var lang = e.currentTarget.dataset.lang;
     var time = $this.data.selectedDateFormat;
     var level = $this.data.permissionsData.level;
+    var tename = e.currentTarget.dataset.tename;
     if(id !=3){
       if(level==1){
         dd.navigateTo({
-          url: '../combine/combine?id='+id+'&date=' + time+'&lang='+lang
+          url: '../combine/combine?id='+id+'&date=' + time + '&lang=' + lang + '&tename=' + tename
         });
       }
     }
@@ -425,10 +416,11 @@ Page({
   // 跳转到小组页面
   goToSubGroup:function(e){
     var $this = this;
-    console.log(e,"e")
+    console.log(e,"e02")
     var id = e.currentTarget.dataset.id;
     var date = $this.data.selectedDateFormat;
     var lang = e.currentTarget.dataset.lang;
+    var tename = e.currentTarget.dataset.tename;
     if(id == 16){
       var brand = e.currentTarget.dataset.brand;
       dd.navigateTo({
@@ -436,7 +428,7 @@ Page({
       });
     }else{
       dd.navigateTo({
-        url: '../subGroup/subGroup?id='+id+'&date=' + date + '&pageType=' + $this.data.pageType+'&lang='+lang
+        url: '../subGroup/subGroup?id='+id+'&date=' + date + '&pageType=' + $this.data.pageType +'&lang='+ lang + '&tename=' + tename
       });
     }
   },

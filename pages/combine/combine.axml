@@ -34,7 +34,7 @@
             <text class="txt-team">{{items.groupName}}</text>
           </view>
           <view class="team-task">
-            <view class="task-range">
+            <view class="task-range {{tename=='组合一'?'lineColor01':'lineColor02'}}">
               <view class="range-mask" style="width: {{items.percentRange}}">
                 <view class="txt-font no-task" a:if="{{items.mnumber==2000&&(items.uid==12||items.uid==13)}}"><text class="color-percent">占比 {{items.percentFont}}</text></view>
                 <view class="txt-font" a:else><text class="color-percent">进度 {{items.percentFont}}</text><text class="date-percent">时间 {{items.datePercent}}</text></view>

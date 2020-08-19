@@ -1,76 +1,76 @@
 
 
 .combine-panel{
-    width: 100%;
-    overflow: hidden;
-    padding: 30rpx 55rpx;
-    position: relative;
-    z-index: 10;
+    width:100%;
+    overflow:hidden;
+    padding:30rpx 55rpx;
+    position:relative;
+    z-index:10;
 }
 
 .compare-list{
-    width: 100%;
-    padding-top: 20rpx;
-    overflow: hidden;
-    position: relative;
-    z-index: 10;
+    width:100%;
+    padding-top:20rpx;
+    overflow:hidden;
+    position:relative;
+    z-index:10;
 }
 .compare-list .item-compare{
-    width: 100%;
-    border: 1px solid #86abf8;
-    background: #eff4fe;
-    border-radius: 30rpx;
-    position: relative;
-    margin-top: 40rpx;
-    padding: 20rpx 0;
+    width:100%;
+    border:1px solid #86abf8;
+    background:#eff4fe;
+    border-radius:30rpx;
+    position:relative;
+    margin-top:40rpx;
+    padding:20rpx 0;
 }
 .compare-list .item-compare .item-font{
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 44rpx;
-    line-height: 44rpx;
-    background: #fff;
-    padding: 0 20rpx;
-    top: -22rpx;
-    font-size: 20rpx;
-    color: #838282;
-    border-radius: 44rpx;
+    display:inline-block;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    height:44rpx;
+    line-height:44rpx;
+    background:#fff;
+    padding:0 20rpx;
+    top:-22rpx;
+    font-size:20rpx;
+    color:#838282;
+    border-radius:44rpx;
 }
 .compare-list .item-compare:after{
     content:'';
-    display: block;
-    width: 100%;
+    display:block;
+    width:100%;
     clear:both;
 }
 .compare-list .item-compare .blue-panel,
 .compare-list .item-compare .red-panel{
-    width: 23%;
+    width:23%;
     float:left;
 }
 .compare-list .item-compare .blue-panel .num-panel,
 .compare-list .item-compare .red-panel .num-panel{
-    width: 100%;
-    padding: 0 20rpx;
+    width:100%;
+    padding:0 20rpx;
     font-size:0;
-    text-align: center;
+    text-align:center;
 }
 .compare-list .item-compare .blue-panel .num-panel .txt-num,
 .compare-list .item-compare .red-panel .num-panel .txt-num{
-    display: inline-block;
-    position: relative;
-    font-size: 34rpx;
-    height: 44rpx;
-    line-height: 44rpx;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
+    display:inline-block;
+    position:relative;
+    font-size:34rpx;
+    height:44rpx;
+    line-height:44rpx;
+    font-weight:bold;
+    font-family:Arial, Helvetica, sans-serif;
 }
 .compare-list .item-compare .blue-panel .num-panel .txt-num{
-    color: #4b8eea;
+    color:#4b8eea;
 }
 .compare-list .item-compare .red-panel .num-panel .txt-num{
-    color: #eb4940;
+    color:#eb4940;
 }
 .compare-list .item-compare .blue-panel .num-panel .txt-num:before,
 .compare-list .item-compare .red-panel .num-panel .txt-num:before,
@@ -79,17 +79,17 @@
 .compare-list .item-comThreebox .item-comThreepanel.panelblue .txt-name:before,
 .compare-list .item-comThreebox .item-comThreepanel.panelred .txt-name:before{
     content:'胜';
-    display: none;
-    width: 30rpx;
-    height: 30rpx;
-    border-radius: 100%;
-    background: #eb4940;
-    font-size: 18rpx;
-    color: #ffffff;
-    text-align: center;
-    line-height: 34rpx;
-    position: absolute;
-    right: -34rpx;
+    display:none;
+    width:30rpx;
+    height:30rpx;
+    border-radius:100%;
+    background:#eb4940;
+    font-size:18rpx;
+    color:#ffffff;
+    text-align:center;
+    line-height:34rpx;
+    position:absolute;
+    right:-34rpx;
     top:-4rpx;
 }
 .compare-list .item-compare .blue-panel.win .num-panel .txt-num:before,
@@ -98,118 +98,118 @@
 .compare-list .item-comTwo .item-comTwopanel.panelred.win .txt-name:before,
 .compare-list .item-comThreebox .item-comThreepanel.panelblue.win .txt-name:before,
 .compare-list .item-comThreebox .item-comThreepanel.panelred.win .txt-name:before{
-    display: block;
+    display:block;
 }
 .compare-list .item-compare .blue-panel .txt-name,
 .compare-list .item-compare .red-panel .txt-name{
-    width: 100%;
-    height: 36rpx;
-    line-height: 36rpx;
-    text-align: center;
-    font-size: 22rpx;
-    color: #010101;
+    width:100%;
+    height:36rpx;
+    line-height:36rpx;
+    text-align:center;
+    font-size:22rpx;
+    color:#010101;
 }
 .compare-list .item-compare .range-content{
-    width: 54%;
+    width:54%;
     float:left;
-    padding: 30rpx 0 24rpx;
-    overflow: hidden;
+    padding:30rpx 0 24rpx;
+    overflow:hidden;
 }
 .compare-list .item-compare .range-content .range{
-    width: 100%;
-    height: 26rpx;
-    border-radius: 26rpx;
-    background: #fc9513;
-    position: relative;
-    overflow: hidden;
+    width:100%;
+    height:26rpx;
+    border-radius:26rpx;
+    background:#fc9513;
+    position:relative;
+    overflow:hidden;
 }
 .compare-list .item-compare .range-content .range .range-font{
-    width: 100%;
-    height: 26rpx;
-    position: absolute;
+    width:100%;
+    height:26rpx;
+    position:absolute;
     left:0;
     top:0;
-    padding: 0 20rpx;
+    padding:0 20rpx;
 }
 .compare-list .item-compare .range-content .range .range-font .txt-font{
-    display: block;
-    height: 26rpx;
-    line-height: 28rpx;
-    font-size: 16rpx;
-    color: #ffffff;
-    opacity: .6;
+    display:block;
+    height:26rpx;
+    line-height:28rpx;
+    font-size:16rpx;
+    color:#ffffff;
+    opacity:.6;
     float:left;
 }
 .compare-list .item-compare .range-content .range .range-font .txt-font+.txt-font{
     float:right;
 }
 .compare-list .item-compare .range-content .range .color-range{
-    display: block;
-    background: #00ca9d;
-    height: 26rpx;
+    display:block;
+    background:#00ca9d;
+    height:26rpx;
 }
 
 
 .compare-list .item-comTwo,
 .compare-list .item-comThree{
-    width: 100%;
-    border: 1px solid #86abf8;
-    background: #eff4fe;
-    border-radius: 30rpx;
-    position: relative;
-    margin-top: 40rpx;
-    padding: 20rpx 0;
+    width:100%;
+    border:1px solid #86abf8;
+    background:#eff4fe;
+    border-radius:30rpx;
+    position:relative;
+    margin-top:40rpx;
+    padding:20rpx 0;
 }
 .compare-list .item-comTwo .item-font,
 .compare-list .item-comThree .item-font{
-    display: inline-block;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 44rpx;
-    line-height: 44rpx;
-    background: #fff;
-    padding: 0 20rpx;
-    top: -22rpx;
-    font-size: 20rpx;
-    color: #838282;
-    border-radius: 44rpx;
+    display:inline-block;
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    height:44rpx;
+    line-height:44rpx;
+    background:#fff;
+    padding:0 20rpx;
+    top:-22rpx;
+    font-size:20rpx;
+    color:#838282;
+    border-radius:44rpx;
 }
 .compare-list .item-comTwo:after,
 .compare-list .item-comthree:after{
     content:'';
-    display: block;
-    width: 100%;
+    display:block;
+    width:100%;
     clear:both;
 }
 .compare-list .item-comTwo .item-comTwopanel{
-    width: 25%;
+    width:25%;
     float:left;
     padding-top:15rpx;
-    text-align: center;
+    text-align:center;
 }
 .compare-list .item-comTwo .item-comTwopanel .txt-name{
-    position: relative;
-    height: 36rpx;
-    line-height: 36rpx;
-    text-align: center;
-    font-size: 26rpx;
-    color: #010101;
-    display: inline-block;
+    position:relative;
+    height:36rpx;
+    line-height:36rpx;
+    text-align:center;
+    font-size:26rpx;
+    color:#010101;
+    display:inline-block;
 }
 .compare-list .item-comTwo .item-comTwopanel .txt-groupName{
-    width: 100%;
-    height: 34rpx;
-    line-height: 34rpx;
-    text-align: center;
-    font-size: 20rpx;
-    color: #b2b2b2;
+    width:100%;
+    height:34rpx;
+    line-height:34rpx;
+    text-align:center;
+    font-size:20rpx;
+    color:#b2b2b2;
 }
 .compare-list .item-comTwo .num-panel{
     float:left;
-    width: 50%;
-    padding: 30rpx 0 24rpx;
-    overflow: hidden;
+    width:50%;
+    padding:30rpx 0 24rpx;
+    overflow:hidden;
 }
 .compare-list .item-comTwo .num-panel .blue-panel,
 .compare-list .item-comTwo .num-panel .red-panel,
@@ -218,81 +218,64 @@
     float:left;
     width:45%;
     text-align:right;
-    color: #4b8eea;
-    font-weight: bold;
-    font-size: 34rpx;
+    color:#4b8eea;
+    font-weight:bold;
+    font-size:34rpx;
 }
 .compare-list .item-comTwo .num-panel .red-panel,
 .compare-list .item-comThreebox .num-panel .red-panel{
-    color: #eb4940;
+    color:#eb4940;
     text-align:left;
 }
 .compare-list .item-comTwo .num-panel .txt-colon,
 .compare-list .item-comThreebox .num-panel .txt-colon{
-    float: left;
-    width: 10%;
-    text-align: center;
+    float:left;
+    width:10%;
+    text-align:center;
     color:#c2cce5;
-    font-size: 34rpx;
-    font-weight: bold;
+    font-size:34rpx;
+    font-weight:bold;
 }
 
-.item-comThreebox{clear:both; overflow:hidden;box-shadow:0rpx 4rpx 8rpx rgba(191, 209, 248,0.3);}
+.item-comThreebox{clear:both;overflow:hidden;box-shadow:0rpx 4rpx 8rpx rgba(191, 209, 248,0.3);}
 
 .compare-list .item-comThreebox .item-comThreepanel{
-    width: 30%;
+    width:34%;
     float:left;
     padding-top:30rpx;
-    text-align: center;
+    text-align:center;
 }
 .compare-list .item-comThreebox .item-comThreepanel .txt-name{
-    height: 36rpx;
-    line-height: 36rpx;
-    text-align: center;
-    font-size: 26rpx;
-    color: #010101;
-    position: relative;
-    display: inline-block;
+    height:36rpx;
+    line-height:36rpx;
+    text-align:center;
+    font-size:26rpx;
+    color:#010101;
+    position:relative;
+    display:inline-block;
 }
 .compare-list .item-comThreebox .num-panel{
     float:left;
-    width: 40%;
-    padding: 30rpx 0 24rpx;
-    overflow: hidden;
+    width:32%;
+    padding:30rpx 0 24rpx;
+    overflow:hidden;
 }
-.item-comThreebom{clear:both; display: block; overflow: hidden;  padding:30rpx 0rpx 20rpx 0rpx;}
-.item-comThreebom .item-comThreebom_item{float: left; width:25%; text-align:center; padding:0rpx 10rpx; position: relative;}
-.item-comThreebom .item-comThreebom_item:first-child:before{display: none;}
-.item-comThreebom .item-comThreebom_item::before{content:''; position: absolute; left: 0rpx; top:10rpx; bottom:0rpx; width:2rpx;     background: #c3e8ff; background: -webkit-linear-gradient(top,#c3e8ff 20%,#f2f7fe 100%);    background: -o-linear-gradient(top,#c3e8ff 20%,#f2f7fe 100%); background: linear-gradient(top,#c3e8ff 20%,#f2f7fe 100%);}
-.item-comThreebom .item-comThreebom_item:first-child:before{display: none;}
-.item-comThreebom .item-comThreebom_item .Three_number{clear:both; display: block; font-size:28rpx; line-height: 1; font-weight: bold;}
-.item-comThreebom .item-comThreebom_item .Three_name{clear:both; display: block; font-size:20rpx; line-height: 1; color: #5a5d64;padding:15rpx 0rpx;}
-.item-comThreebom .item-comThreebom_item .Three_groupName{clear:both; display: block; font-size:16rpx; line-height: 1; color: #9c9c9c;}
-.item-comThreebom .item-comThreebom_item.numcolor01 .Three_number{color: #fc9004;}
-.item-comThreebom .item-comThreebom_item.numcolor02 .Three_number{color: #d87705;}
-.item-comThreebom .item-comThreebom_item.numcolor03 .Three_number{color: #0a9c1f;}
-.item-comThreebom .item-comThreebom_item.numcolor04 .Three_number{color: #00ca9d;}
-.item-comFour{
-    width: 100%;
-    position: relative;
-    padding: 20rpx 0 20rpx 20rpx;
-}
-.item-comFour text{
-    color: #4793d2;
-    font-size:20rpx;
-    line-height: 38rpx;
-    text-align: left;
-}
-.item-comFour text:first-child{
-    position: absolute;
-    left:0rpx;
-    top:22rpx;
-    color: #fc9514;
-}
-.task-panel{
-    margin-top: 30rpx;
-    border-radius: 25rpx 25rpx 0 0;
-}
-.task-content{
-    margin-top:0;
-}
+.item-comThreebom{clear:both;display:block;overflow:hidden;padding:30rpx 0rpx 20rpx 0rpx;}
+.item-comThreebom .item-comThreebom_item{float:left;width:25%;text-align:center;padding:0rpx 10rpx;position:relative;}
+.item-comThreebom .item-comThreebom_item:first-child:before{display:none;}
+.item-comThreebom .item-comThreebom_item::before{content:'';position:absolute;left:0rpx;top:10rpx;bottom:0rpx;width:2rpx;background:#c3e8ff;background:-webkit-linear-gradient(top,#c3e8ff 20%,#f2f7fe 100%);background:-o-linear-gradient(top,#c3e8ff 20%,#f2f7fe 100%);background:linear-gradient(top,#c3e8ff 20%,#f2f7fe 100%);}
+.item-comThreebom .item-comThreebom_item:first-child:before{display:none;}
+.item-comThreebom .item-comThreebom_item .Three_number{clear:both;display:block;font-size:28rpx;line-height:1;font-weight:bold;}
+.item-comThreebom .item-comThreebom_item .Three_number .Three_numbertext{position:relative;}
+.item-comThreebom .item-comThreebom_item .Three_number.win .Three_numbertext:before{content:'胜';width:30rpx;height:30rpx;border-radius:100%;background:#eb4940;font-size:18rpx;color:#ffffff;text-align:center;line-height:34rpx;position:absolute;right:-34rpx;top:-4rpx;}
+.item-comThreebom .item-comThreebom_item .Three_name{clear:both;display:block;font-size:20rpx;line-height:1;color:#5a5d64;padding:15rpx 0rpx;}
+.item-comThreebom .item-comThreebom_item .Three_groupName{clear:both;display:block;font-size:16rpx;line-height:1;color:#9c9c9c;}
+.item-comThreebom .item-comThreebom_item.numcolor01 .Three_number{color:#fc9004;}
+.item-comThreebom .item-comThreebom_item.numcolor02 .Three_number{color:#d87705;}
+.item-comThreebom .item-comThreebom_item.numcolor03 .Three_number{color:#0a9c1f;}
+.item-comThreebom .item-comThreebom_item.numcolor04 .Three_number{color:#00ca9d;}
+.item-comFour{width:100%;position:relative;padding:20rpx 0 20rpx 20rpx;}
+.item-comFour text{color:#4793d2;font-size:20rpx;line-height:38rpx;text-align:left;}
+.item-comFour text:first-child{position:absolute;left:0rpx;top:22rpx;color:#fc9514;}
+.task-panel{margin-top:30rpx;border-radius:25rpx 25rpx 0 0;}
+.task-content{margin-top:0;}

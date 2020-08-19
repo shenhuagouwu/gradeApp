@@ -99,8 +99,7 @@
               <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
             </view>
             <view class="body-table">
-              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id!=14}}">
-                <!-- <view class="item-view">1</view> -->
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id==15||items.id==33}}">
                 <view class="item-view" key="{{items.id}}">
                 
                   <view class="parent-panel">
@@ -129,24 +128,8 @@
               </block>
             </view>
           </view>
-          <block a:if="{{(item.id == 3)&&item.top5Chart.categories.length>0}}">
-            <view class="chart-members">
-              <view class="txt-h3"><text class="txt-font">组员询盘个数</text><text class="txt-red">TOP5</text></view>
-              <view class="txt-des">本表展示数据日期：{{selectedDateFormat}}</view>
-              <view class="chart-cavans">
-                <column
-                  categories="{{item.top5Chart.categories}}"
-                  series="{{item.top5Chart.series}}"
-                  xAxis="{{item.top5Chart.xAxis}}"
-                  yAxis="{{item.top5Chart.yAxis}}"
-                  legend="{{item.top5Chart.legend}}"
-                  coord="{{item.top5Chart.coord}}"
-                />
-              </view>
-            </view>
-          </block>
         </block>
-        <!-- <block a:if="{{(item.id == 3&&item.data.length>1)||(item.id == 3&&item.data.length==1&&item.data[0].id==14)}}">
+        <block a:if="{{(item.id == 3&&item.data.length>1)||(item.id == 3&&item.data.length==1&&item.data[0].id==26)}}">
           <view class="table-view {{item.data.length>1?'zyf':''}}">
             <view class="header-table">
               <view class="td-view"><text class="txt-name">姓名</text></view>
@@ -154,7 +137,7 @@
               <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
             </view>
             <view class="body-table">
-              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id==14}}">
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id==26}}">
                 <view class="item-view" key="{{items}}">
                   <view class="parent-panel">
                     <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
@@ -182,7 +165,60 @@
               </block>
             </view>
           </view>
-        </block> -->
+        </block>
+        <block a:if="{{(item.id == 3&&item.data.length>1)||(item.id == 3&&item.data.length==1&&item.data[0].id==43)}}">
+          <view class="table-view {{item.data.length>1?'zyf':''}}">
+            <view class="header-table">
+              <view class="td-view"><text class="txt-name">姓名</text></view>
+              <view class="td-view"><text class="txt-font">当日个数</text><text class="txt-date">{{item.data[0].nowtime}}</text></view>
+              <view class="td-view"><text class="txt-font">本月个数</text><text class="txt-date">{{item.data[0].month}}</text></view>
+            </view>
+            <view class="body-table">
+              <block a:for="{{item.data}}" a:for-item="items" a:if="{{items.id==43}}">
+                <view class="item-view" key="{{items}}">
+                  <view class="parent-panel">
+                    <view class="parent-table" data-id="{{items.id}}" data-lang="{{items.lang}}" onTap="goToSubGroup">
+                      <view class="td-view">
+                        <text class="txt-name">{{items.userName}}</text>
+                        <text class="txt-group">- {{items.groupName}}</text>
+                      </view>
+                      <view class="td-view"><text class="txt-num"><text class="txt-qty">{{items.nowdata}}</text></text></view>
+                      <view class="td-view"><text class="txt-total"><text class="txt-qty">{{items.monthdata}}</text></text></view>
+                    </view>
+                    <view class="btn-son {{items.isSonShow?'show':''}}" a:if="{{items.hasSon}}" onTap="showSon" data-gid="{{item.id}}" data-id="{{items.id}}"></view>
+                  </view>
+                  <block a:if="{{items.isSonShow}}">
+                  <block>
+                    <view class="son-table">
+                      <view class="item-table" a:for="{{items.user}}" a:for-item="item1" data-id="{{item1.user_id}}" data-team="{{items.id}}" data-name="{{item1.uname}}" onTap="goToPersonDetail">
+                        <view class="td-view"><text class="txt-name">{{item1.uname}}</text></view>
+                        <view class="td-view"><text class="txt-num"><text class="txt-qty">{{item1.nowdata}}</text></text></view>
+                        <view class="td-view"><text class="txt-total"><text class="txt-qty">{{item1.monthdata}}</text></text></view>
+                      </view>
+                    </view>
+                  </block>
+                  </block>
+                </view>
+              </block>
+            </view>
+          </view>
+          <block a:if="{{(item.id == 3)&&item.top5Chart.categories.length>0}}">
+            <view class="chart-members">
+              <view class="txt-h3"><text class="txt-font">组员询盘个数</text><text class="txt-red">TOP5</text></view>
+              <view class="txt-des">本表展示数据日期：{{selectedDateFormat}}</view>
+              <view class="chart-cavans">
+                <column
+                  categories="{{item.top5Chart.categories}}"
+                  series="{{item.top5Chart.series}}"
+                  xAxis="{{item.top5Chart.xAxis}}"
+                  yAxis="{{item.top5Chart.yAxis}}"
+                  legend="{{item.top5Chart.legend}}"
+                  coord="{{item.top5Chart.coord}}"
+                />
+              </view>
+            </view>
+          </block>
+        </block>
         <block a:if="{{item.id == 4||item.id == 7}}">
           <view class="table-view">
             <view class="header-table">

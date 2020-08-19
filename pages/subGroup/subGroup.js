@@ -15,6 +15,7 @@ Page({
     currentID:"",
     isLoading:true,
     lang:'',
+    tename:'',
     title:'',
     initData:{},
     trendstatus:1,
@@ -45,6 +46,7 @@ Page({
     var $this = this;
     $this.hideDatePicker();
     var currentID = parseInt(query.id);
+    var tename = query.tename;
     var today = $this.getToday();
     var todayMonth = today.month<10?('0'+today.month): (""+today.month);
     var todayDay = today.day<10?("0"+today.day):(""+today.day);
@@ -117,6 +119,7 @@ Page({
               dateData,
               dateData1,
               dateType,
+              tename,
               timeType,
               currentID,
               lang:query.lang,

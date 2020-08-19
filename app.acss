@@ -955,7 +955,15 @@ page{
     font-weight: bold;
     color: #393d48;
 }
-
+.combineColor02 .range-font .color-font:before{    background: #fc9514;}
+.combineColor02 .range-font .date-font{color: #fc9514;}
+.combineColor02 .range-font .date-font:before{background-image: url(/assets/images/range_mark01.png);}
+.combineColor02 .range-font .color-font{    color: #fc9514;}
+.combineColor02 .team-list .item-team .team-task .task-range .color-range{background: #fc9514;}
+.combineColor02 .team-list .item-team .team-task .task-range .range-mask .txt-font .color-percent{color: #fc9514;}
+.combineColor02 .team-list .item-team .team-task .task-range .range-mask .txt-font .color-percent:before{background: #fc9514;}
+.combineColor02 .team-list .item-team .team-task .task-font .txt-current{color: #fc9514;}
+.combineColor02 .team-list .item-team .team-task .task-range .date-range{background-image: url(/assets/images/range_mark01.png);}
 .team-list{
     width: 100%;
     position: relative;
@@ -1051,6 +1059,10 @@ page{
     border-radius: 0 24rpx 24rpx 0;
     position: relative;
 }
+.task-content .item-group .item-combine .txt-h3 .range-font{
+    float:right;
+    width: auto;
+}
 .range-font{
     width: 100%;
     height: 24rpx;
@@ -1082,19 +1094,19 @@ page{
     overflow: hidden;
 }
 .range-font .color-font:before{
-    background: #508ef9;
+    background: #01ca9e;
 }
 .range-font .date-font:before{
-    background-image: url(/assets/images/range_mark.jpg);
+    background-image: url(/assets/images/range_mark02.png);
     background-position: left top;
     background-repeat: repeat-x;
     background-size: auto 150%;
 }
 .range-font .color-font{
-    color: #508ef9;
+    color: #01ca9e;
 }
 .range-font .date-font{
-    color: #69799e;
+    color: #01ca9e;
 }
 .team-list .item-team .team-task .task-range .range-mask{
     height: 24rpx;
@@ -1107,13 +1119,15 @@ page{
 .team-list .item-team .team-task .task-range .color-range{
     display: block;
     height: 24rpx;
-    background: #508ef9;
+    background: #01ca9e;
     border-radius: 0 24rpx 24rpx 0;
     position: absolute;
     left:0;
     top:0;
     z-index: 2;
 }
+.team-list .item-team .team-task .task-range.lineColor01 .color-range{background: #01ca9e;}
+.team-list .item-team .team-task .task-range.lineColor02 .color-range{background:rgb(252, 149, 19);}
 .team-list .item-team .team-task .task-range .date-range{
     display: block;
     left:0;
@@ -1122,11 +1136,14 @@ page{
     border-radius: 0 24rpx 24rpx 0;
     position: absolute;
     z-index: 1;
-    background-image: url(/assets/images/range_mark.jpg);
+    background-image: url(/assets/images/range_mark02.png);
     background-position: left top;
     background-repeat: repeat-x;
     background-size: auto 100%;
     overflow: hidden;
+}
+.team-list .item-team .team-task .task-range.lineColor02 .date-range{
+    background-image: url(/assets/images/range_mark01.png);
 }
 .team-list .item-team .team-task .task-range .range-mask .txt-font{
     display: inline-block;
@@ -1155,7 +1172,7 @@ page{
     font-weight: bold;
 }
 .team-list .item-team .team-task .task-range .range-mask .txt-font .color-percent{
-    color: #508ef9;
+    color: #01ca9e;
 }
 .team-list .item-team .team-task .task-range .range-mask .txt-font.no-task .color-percent{
     color: rgb(235, 73, 64);
@@ -1173,7 +1190,7 @@ page{
     border-radius: 100%;
 }
 .team-list .item-team .team-task .task-range .range-mask .txt-font .color-percent:before{
-    background: #508ef9;
+    background: #01ca9e;
 }
 .team-list .item-team .team-task .task-range .range-mask .txt-font.no-task .color-percent:before{
     background: rgb(235, 73, 64);
@@ -1218,7 +1235,7 @@ page{
     margin-right: 6rpx;
 }
 .team-list .item-team .team-task .task-font .txt-current{
-    color: #508ef9;
+    color: #01ca9e;
 }
 .team-list .item-team .team-task .task-font .txt-total{
     color: #5a5d64;
@@ -1232,6 +1249,7 @@ page{
     width: 25%;
     float:left;
     position: relative;
+    padding:10rpx 0rpx;
 }
 .en-list .item-en .txt-p{
     display: block;
